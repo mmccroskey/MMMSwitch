@@ -7,21 +7,39 @@
 //
 
 #import "ViewController.h"
+#import "MMMSwitch.h"
 
 @interface ViewController ()
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *switchWidthConstraint;
+@property (weak, nonatomic) IBOutlet MMMSwitch *theSwitch;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    [self performSelector:@selector(increaseWidth) withObject:nil afterDelay:3.0f];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)increaseWidth
+{
+    [self.view layoutIfNeeded];
+    [UIView animateWithDuration:6.0f
+                     animations:^{
+                         NSLog(@"animate!");
+                         self.switchWidthConstraint.constant *= 1.2;
+                         [self.view layoutIfNeeded];
+                         [self.theSwitch refreshCornerRadiiWithAnimationDuration:6.0f];
+                     }
+                     completion:nil];
+    
+//    self.switchWidthConstraint.constant *= 1.2;
+//    [self.view layoutIfNeeded];
+//    [self.theSwitch refreshCornerRadiiWithAnimationDuration:0];
 }
 
 @end
