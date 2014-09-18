@@ -18,16 +18,7 @@
 
 #pragma mark - Initializers
 
-- (instancetype)init
-{
-    return self = [super init] ? self : nil;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
-    return self = [super initWithCoder:aDecoder] ? self : nil;
-}
-
+// Ignore any frame we receive
 - (instancetype)initWithFrame:(CGRect)frame
 {
     return self = [super initWithFrame:CGRectZero] ? self : nil;
@@ -117,29 +108,6 @@
 //    }
 //    [self setFrame: thumbFrame];
 //    
-}
-
-#pragma mark - Auto Layout Methods
-
-- (void)layoutSubviews
-{
-    CGRect frame = self.superview.frame;
-    NSLog(@"parent view: %f %f %f %f", CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), CGRectGetHeight(frame));
-    NSLog(@"self: %f %f %f %f", CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
-    [self updateCornerRadius];
-}
-
-- (void)updateConstraints
-{
-    [super updateConstraints];
-    [self updateCornerRadius];
-}
-
-#pragma mark - Private Methods
-
-- (void)updateCornerRadius
-{
-    self.layer.cornerRadius = (floorf(CGRectGetHeight(self.frame))/2.0f);
 }
 
 @end

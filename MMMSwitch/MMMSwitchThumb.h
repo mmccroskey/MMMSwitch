@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MMMRoundedView.h"
 
 typedef NS_ENUM(NSUInteger, MMMSwitchThumbJustification)
 {
@@ -14,7 +15,7 @@ typedef NS_ENUM(NSUInteger, MMMSwitchThumbJustification)
     MMMSwitchThumbJustificationRight
 };
 
-@interface MMMSwitchThumb : UIView
+@interface MMMSwitchThumb : MMMRoundedView
 
 @property (nonatomic, assign) BOOL isTracking;
 

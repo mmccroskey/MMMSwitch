@@ -27,13 +27,13 @@
 
 - (void)increaseWidth
 {
-    [self.view layoutIfNeeded];
-    [UIView animateWithDuration:6.0f
+//    [self.view layoutIfNeeded];
+    [UIView animateWithDuration:10.0f
                      animations:^{
                          NSLog(@"animate!");
                          self.switchWidthConstraint.constant *= 1.2;
                          [self.view layoutIfNeeded];
-                         [self.theSwitch refreshCornerRadiiWithAnimationDuration:6.0f];
+                         [self.theSwitch refreshCornerRadiiWithAnimationDuration:10.0f];
                      }
                      completion:nil];
     

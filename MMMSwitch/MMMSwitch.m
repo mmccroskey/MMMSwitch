@@ -66,28 +66,12 @@ static void * KVOContext = &KVOContext;
     
 }
 
-- (void)refreshCornerRadii
-{
-    [self refreshCornerRadiiWithAnimationDuration:0];
-}
+#pragma mark - Superclass Override Methods
 
 - (void)refreshCornerRadiiWithAnimationDuration:(NSTimeInterval)animationDuration
 {
-    if (!(animationDuration > 0))
-    {
-        [self updateLayout];
-    }
-    else
-    {
-        [CATransaction begin];
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(cornerRadius))];
-        animation.fromValue = @(self.layer.cornerRadius);
-        animation.toValue = @(floorf(CGRectGetHeight(self.frame)/2.0f));
-        animation.duration = animationDuration;
-        [CATransaction setCompletionBlock:^{ [self updateLayout]; }];
-        [self.layer addAnimation:animation forKey:nil];
-        [CATransaction commit];
-    }
+    [super refreshCornerRadiiWithAnimationDuration:animationDuration];
+    [self.thumb refreshCornerRadiiWithAnimationDuration:animationDuration];
 }
 
 #pragma mark - Private Methods
@@ -99,12 +83,7 @@ static void * KVOContext = &KVOContext;
     [self addSubview:self.thumb];
     [self.thumb configureLayout];
     
-    [self updateLayout];
-}
-
-- (void)updateLayout
-{
-    self.layer.cornerRadius = floorf(CGRectGetHeight(self.frame)/2.0f);
+    [self updateCornerRadius];
 }
 
 @end
