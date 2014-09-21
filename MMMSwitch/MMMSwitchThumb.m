@@ -144,7 +144,6 @@
 
 - (void)setOn:(BOOL)on
 {
-    if (_on == on) { return; }
     BOOL wantsRightSide = on;
     if (wantsRightSide)
     {
@@ -166,39 +165,10 @@
 {
     [super layoutSubviews];
     
-//    // Put layout into state it's supposedly already in
-//    // (This is a no-op in most cases, but in cases
-//    // where the switch has been resized, this ensures
-//    // that everything ends up where it's supposed to be)
-//    
-//    // If we're not marked as stretched...
-//    if (!self.stretched)
-//    {
-//        // ...then we shouldn't be stretched
-//        self.widthConstraint.constant = 0;
-//    }
-//    else
-//    {
-//        // If we are marked as stretched...
-//        
-//        // ...then we should be stretched
-//        self.widthConstraint.constant = [self stretchedWidth];
-//    }
-//    
-//    // And if we're not marked as being on the right....
-//    if (!self.onRightSide)
-//    {
-//        // ...then we shouldn't be horinzontally-adjusted for the right side
-//        self.leadingEdgeConstraint.constant = 0;
-//    }
-//    else
-//    {
-//        // But if we are marked as being on the right...
-//        
-//        // ...then we need to make sure we're horizontally-adjusted
-//        [self adjustLeadingEdgeForRightSideWithGrowthState:self.stretched];
-//    }
     
+    // Ensure things are the way they're already supposed to be
+    // (These are usually no-ops, except when switch is resizing)
+    [self setOn:self.isOn];
     [self updateCornerRadius];
 }
 
