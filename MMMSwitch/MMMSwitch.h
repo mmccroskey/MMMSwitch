@@ -21,7 +21,5 @@ typedef void(^MMMSwitchDidChangeHandler)(BOOL isOn);
 @property(nonatomic, copy) MMMSwitchDidChangeHandler didChangeHandler;
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated;
-- (void)refreshCornerRadii;
-- (void)refreshCornerRadiiWithAnimationDuration:(NSTimeInterval)animationDuration;
 
 @end

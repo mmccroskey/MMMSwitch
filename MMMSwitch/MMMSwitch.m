@@ -12,12 +12,18 @@
 
 #define notSupportedMessage "This initializer is not supported by this class; please use 'init' instead."
 
+#define kDefaultOffTrackTintColor [UIColor orangeColor];
+#define kDefaultOnTrackTintColor  [UIColor greenColor];
+
 static void * KVOContext = &KVOContext;
 
-@interface MMMSwitch ()
+@interface MMMSwitch () <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) MMMSwitchTrack *track;
 @property (strong, nonatomic) MMMSwitchThumb *thumb;
+
+@property (strong, nonatomic) UITapGestureRecognizer *tapRecognizer;
+@property (strong, nonatomic) UIPanGestureRecognizer *panRecognizer;
 
 @end
 
@@ -66,45 +72,55 @@ static void * KVOContext = &KVOContext;
     
 }
 
-- (void)refreshCornerRadii
+#pragma mark - Auto Layout Methods
+
+- (void)layoutSubviews
 {
-    [self refreshCornerRadiiWithAnimationDuration:0];
+    [super layoutSubviews];
+    [self updateCornerRadius];
 }
 
-- (void)refreshCornerRadiiWithAnimationDuration:(NSTimeInterval)animationDuration
-{
-    if (!(animationDuration > 0))
-    {
-        [self updateLayout];
-    }
-    else
-    {
-        [CATransaction begin];
-        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(cornerRadius))];
-        animation.fromValue = @(self.layer.cornerRadius);
-        animation.toValue = @(floorf(CGRectGetHeight(self.frame)/2.0f));
-        animation.duration = animationDuration;
-        [CATransaction setCompletionBlock:^{ [self updateLayout]; }];
-        [self.layer addAnimation:animation forKey:nil];
-        [CATransaction commit];
-    }
-}
-
-#pragma mark - Private Methods
+#pragma mark - Configuration Methods
 
 - (void)configure
 {
     self.translatesAutoresizingMaskIntoConstraints = NO;
-    self.thumb = [[MMMSwitchThumb alloc] init];
-    [self addSubview:self.thumb];
-    [self.thumb configureLayout];
+    self.clipsToBounds = YES;
+    self.offTrackTintColor = kDefaultOffTrackTintColor;
+    self.onTrackTintColor = kDefaultOnTrackTintColor;
     
-    [self updateLayout];
+    self.thumb = [[MMMSwitchThumb alloc] initWithSuperview:self];
+    self.track = [[MMMSwitchTrack alloc] initWithOnTintColor:self.onTrackTintColor
+                                                offTintColor:self.offTrackTintColor
+                                                   superview:self];
+    
+    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap)];
+    self.tapRecognizer.delegate = self;
+    [self addGestureRecognizer:self.tapRecognizer];
+    
+    self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan)];
+    self.panRecognizer.delegate = self;
+    [self addGestureRecognizer:self.panRecognizer];
+    
+    [self updateCornerRadius];
 }
 
-- (void)updateLayout
+- (void)updateCornerRadius
 {
     self.layer.cornerRadius = floorf(CGRectGetHeight(self.frame)/2.0f);
+}
+
+#pragma mark - Gesture Recognizer Callback Methods
+
+- (void)didTap
+{
+    NSLog(@"Tap occurred");
+    [self.track setOn:!self.track.isOn animated:YES];
+}
+
+- (void)didPan
+{
+    NSLog(@"Pan occurred");
 }
 
 @end

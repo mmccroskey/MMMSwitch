@@ -17,8 +17,11 @@ typedef NS_ENUM(NSUInteger, MMMSwitchThumbJustification)
 @interface MMMSwitchThumb : UIView
 
 @property (nonatomic, assign) BOOL isTracking;
+@property (strong, nonatomic) UIColor *thumbColor;
+@property (strong, nonatomic) UIColor *borderColor;
 
-- (void)configureLayout;
+- (instancetype)initWithSuperview:(UIView*)superview;
+
 - (void)growThumbWithJustification:(MMMSwitchThumbJustification)justification;
 - (void)shrinkThumbWithJustification:(MMMSwitchThumbJustification)justification;
 
