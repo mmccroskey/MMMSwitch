@@ -22,7 +22,9 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WnL-HA-abN" secondAttribute="height" multiplier="5:3" id="Gkf-2p-BA5"/>
-                                    <constraint firstAttribute="width" constant="200" id="wC6-LW-XWc"/>
+                                    <constraint firstAttribute="width" constant="200" id="wC6-LW-XWc">
+                                        <variation key="heightClass=compact-widthClass=regular" constant="300"/>
+                                    </constraint>
                                 </constraints>
                             </view>
                         </subviews>
