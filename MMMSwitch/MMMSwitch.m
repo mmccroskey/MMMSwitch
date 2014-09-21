@@ -67,9 +67,36 @@ static void * KVOContext = &KVOContext;
 
 #pragma mark - Public Methods
 
+- (void)setOn:(BOOL)on
+{
+    self.backgroundColor = on ? self.onTrackTintColor : self.offTrackTintColor;
+    
+    _on = on;
+}
+
 - (void)setOn:(BOOL)on animated:(BOOL)animated
 {
-    
+    if (animated)
+    {
+        __weak id weakSelf = self;
+        //First animate the color switch
+        [UIView animateWithDuration: 0.25f
+                              delay: 0.0
+                            options: UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             [weakSelf setOn: on
+                                    animated: NO];
+                             NSLog(@"Inside animation block, setting thumb to %d", on);
+                             [[(MMMSwitch*)weakSelf thumb] setOn:on];
+                             [[(MMMSwitch*)weakSelf thumb] layoutIfNeeded];
+                         }
+                         completion:nil];
+    }
+    else
+    {
+        [self setOn:on];
+        [self.thumb setOn:on];
+    }
 }
 
 #pragma mark - Auto Layout Methods
@@ -85,24 +112,26 @@ static void * KVOContext = &KVOContext;
 - (void)configure
 {
     self.translatesAutoresizingMaskIntoConstraints = NO;
-    self.clipsToBounds = YES;
+//    self.clipsToBounds = YES;
     self.offTrackTintColor = kDefaultOffTrackTintColor;
     self.onTrackTintColor = kDefaultOnTrackTintColor;
     
     self.thumb = [[MMMSwitchThumb alloc] initWithSuperview:self];
-    self.track = [[MMMSwitchTrack alloc] initWithOnTintColor:self.onTrackTintColor
-                                                offTintColor:self.offTrackTintColor
-                                                   superview:self];
+//    self.track = [[MMMSwitchTrack alloc] initWithOnTintColor:self.onTrackTintColor
+//                                                offTintColor:self.offTrackTintColor
+//                                                   superview:self];
     
-    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap)];
-    self.tapRecognizer.delegate = self;
-    [self addGestureRecognizer:self.tapRecognizer];
+//    self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTap)];
+//    self.tapRecognizer.delegate = self;
+//    [self addGestureRecognizer:self.tapRecognizer];
     
     self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPan)];
     self.panRecognizer.delegate = self;
-    [self addGestureRecognizer:self.panRecognizer];
+//    [self addGestureRecognizer:self.panRecognizer];
     
     [self updateCornerRadius];
+    
+    [self setOn:NO];
 }
 
 - (void)updateCornerRadius
@@ -121,6 +150,44 @@ static void * KVOContext = &KVOContext;
 - (void)didPan
 {
     NSLog(@"Pan occurred");
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touch down occurred");
+    [self.thumb growThumbFromRightSide:self.isOn];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"on? %d", self.isOn);
+    
+    UITouch *touch = touches.anyObject;
+    CGFloat xPos = [touch locationInView:self].x;
+    BOOL onRightSide = (xPos > (CGRectGetWidth(self.frame)/2.0f));
+    NSLog(@"onRightSide? %d", onRightSide);
+    if (onRightSide && !(self.isOn))
+    {
+        NSLog(@"onRightSide and off");
+        [self setOn:YES animated:YES];
+    }
+    else if (!(onRightSide) && self.isOn)
+    {
+        NSLog(@"onLeftSide and on");
+        [self setOn:NO animated:YES];
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touch cancel occurred");
+    [self.thumb shrinkThumbFromRightSide:self.isOn];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touch up occurred");
+    [self.thumb shrinkThumbFromRightSide:self.isOn];
 }
 
 @end

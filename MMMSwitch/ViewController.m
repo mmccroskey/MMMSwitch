@@ -22,7 +22,7 @@
 {
     [super viewDidLoad];
     
-    [self performSelector:@selector(increaseWidth) withObject:nil afterDelay:3.0f];
+//    [self performSelector:@selector(increaseWidth) withObject:nil afterDelay:3.0f];
 }
 
 - (void)increaseWidth

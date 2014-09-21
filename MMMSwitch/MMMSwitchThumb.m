@@ -14,6 +14,13 @@
 #define kDefaultBorderColor [UIColor darkGrayColor];
 #define kDefaultBorderWidth 1.0f;
 
+@interface MMMSwitchThumb()
+
+@property (strong, nonatomic) NSLayoutConstraint *widthConstraint;
+@property (strong, nonatomic) NSLayoutConstraint *leadingEdgeConstraint;
+
+@end
+
 @implementation MMMSwitchThumb
 
 - (instancetype)initWithSuperview:(UIView*)superview
@@ -42,15 +49,14 @@
         [superview addConstraint:heightConstraint];
         
         // Thumb's width should start out matching its height (it will stretch on touchDown)
-        NSLayoutConstraint *widthConstraint = [NSLayoutConstraint
-                                               constraintWithItem:self
-                                               attribute:NSLayoutAttributeWidth
-                                               relatedBy:NSLayoutRelationEqual
-                                               toItem:self
-                                               attribute:NSLayoutAttributeHeight
-                                               multiplier:1.0f
-                                               constant:0.0f];
-        [self addConstraint:widthConstraint];
+        self.widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                            attribute:NSLayoutAttributeWidth
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self
+                                                            attribute:NSLayoutAttributeHeight
+                                                           multiplier:1.0f
+                                                             constant:0.0f];
+        [self addConstraint:self.widthConstraint];
         
         // Thumb's centerY should always match that of its parent
         NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint
@@ -64,15 +70,14 @@
         [superview addConstraint:centerYConstraint];
         
         // Thumb's leading edge should start out matching its parent (it will move on switch on/off)
-        NSLayoutConstraint *leadingEdgeConstraint = [NSLayoutConstraint
-                                                     constraintWithItem:self
-                                                     attribute:NSLayoutAttributeLeading
-                                                     relatedBy:NSLayoutRelationEqual
-                                                     toItem:superview
-                                                     attribute:NSLayoutAttributeLeading
-                                                     multiplier:1.0f
-                                                     constant:0.0f];
-        [superview addConstraint:leadingEdgeConstraint];
+        self.leadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                  attribute:NSLayoutAttributeLeading
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:superview
+                                                                  attribute:NSLayoutAttributeLeading
+                                                                 multiplier:1.0f
+                                                                   constant:0.0f];
+        [superview addConstraint:self.leadingEdgeConstraint];
         
         [self updateCornerRadius];
         
@@ -109,32 +114,50 @@
 
 #pragma mark - Public Methods
 
--(void) growThumbWithJustification:(MMMSwitchThumbJustification) justification {
-//    if (self.isTracking)
-//        return;
-//    
-//    CGRect thumbFrame = self.frame;
-//    
-//    CGFloat deltaWidth = self.frame.size.width * (kThumbTrackingGrowthRatio - 1);
-//    thumbFrame.size.width += deltaWidth;
-//    if (justification == MMMSwitchThumbJustifyRight) {
-//        thumbFrame.origin.x -= deltaWidth;
-//    }
-//    [self setFrame: thumbFrame];
+- (void)growThumbFromRightSide:(BOOL)onRightSide
+{
+    [self adjustThumbFromRightSide:onRightSide thumbGrowing:YES];
 }
--(void) shrinkThumbWithJustification:(MMMSwitchThumbJustification) justification {
-//    if (!self.isTracking)
-//        return;
-//    
-//    CGRect thumbFrame = self.frame;
-//    
-//    CGFloat deltaWidth = self.frame.size.width * (1 - 1 / (kThumbTrackingGrowthRatio));
-//    thumbFrame.size.width -= deltaWidth;
-//    if (justification == MMMSwitchThumbJustifyRight) {
-//        thumbFrame.origin.x += deltaWidth;
-//    }
-//    [self setFrame: thumbFrame];
-//    
+
+- (void)shrinkThumbFromRightSide:(BOOL)onRightSide
+{
+    [self adjustThumbFromRightSide:onRightSide thumbGrowing:NO];
+}
+
+- (void)adjustThumbFromRightSide:(BOOL)onRightSide
+                        thumbGrowing:(BOOL)growing
+{
+    self.widthConstraint.constant = growing ? (CGRectGetWidth(self.frame)*0.1f) : 0.0f;
+    
+    // If we're shrinking and the thumb is on the right side,
+    // then it will shrink *away* from the right edge of the switch,
+    // so we need to nudge it to the right at the same time to compensate
+    if (!(growing) && onRightSide)
+    {
+        NSLog(@"Shrinking thumb on the right side");
+        self.leadingEdgeConstraint.constant += (CGRectGetWidth(self.frame)*0.1f);
+    }
+    
+    [UIView animateWithDuration:0.1f animations:^{ [self layoutIfNeeded]; }];
+}
+
+- (void)setOn:(BOOL)on
+{
+    NSLog(@"thumb: being set to ON?: %d", on);
+    if (_on == on) { return; }
+    BOOL wantsRightSide = on;
+    if (wantsRightSide)
+    {
+        CGFloat superWidth = CGRectGetWidth(self.superview.frame);
+        CGFloat selfWidth  = CGRectGetWidth(self.frame);
+        self.leadingEdgeConstraint.constant = (superWidth - selfWidth);
+    }
+    else
+    {
+        self.leadingEdgeConstraint.constant = 0.0f;
+    }
+    
+    _on = on;
 }
 
 #pragma mark - Auto Layout Methods
