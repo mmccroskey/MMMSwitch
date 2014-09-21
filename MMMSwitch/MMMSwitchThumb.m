@@ -129,13 +129,17 @@
 {
     self.widthConstraint.constant = growing ? (CGRectGetWidth(self.frame)*0.1f) : 0.0f;
     
-    // If we're shrinking and the thumb is on the right side,
-    // then it will shrink *away* from the right edge of the switch,
-    // so we need to nudge it to the right at the same time to compensate
-    if (!(growing) && onRightSide)
+    // When the thumb changes size, its left side remains fixed
+    // while its right side grows. This looks correct when the
+    // thumb is on the left side of the switch, but this causes
+    // the thumb to over-shoot or under-shoot its proper location
+    // when on the right side of the switch. Thus, when animating
+    // the thumb's width while it's on the right side of the switch
+    // we need to simultaneously tweak its x-location to compensate
+    if (onRightSide)
     {
-        NSLog(@"Shrinking thumb on the right side");
-        self.leadingEdgeConstraint.constant += (CGRectGetWidth(self.frame)*0.1f);
+        CGFloat directionalMultiplier = growing ? -1.0f : 1.0f;
+        self.leadingEdgeConstraint.constant += ((CGRectGetWidth(self.frame)*0.1f) * directionalMultiplier);
     }
     
     [UIView animateWithDuration:0.1f animations:^{ [self layoutIfNeeded]; }];
