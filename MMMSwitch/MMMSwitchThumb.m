@@ -9,15 +9,19 @@
 #import "MMMSwitchThumb.h"
 
 #define kDefaultThumbColor  [UIColor whiteColor];
-#define kDefaultBorderColor [UIColor darkGrayColor];
-#define kDefaultBorderWidth 1.0f;
+#define kDefaultThumbGrowShrinkAnimationDuration 0.1f
+#define kDefaultThumbGrowthFactor 0.1f
+#define kMagicAlignmentAdjustment 1.0f
 
 @interface MMMSwitchThumb()
 
-@property (nonatomic) BOOL layoutHasBeenConfigured;
+@property (assign, nonatomic) BOOL layoutHasBeenConfigured;
 
 @property (strong, nonatomic) NSLayoutConstraint *widthConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *leadingEdgeConstraint;
+
+@property (assign, nonatomic) BOOL stretched;
+@property (assign, nonatomic) BOOL onRightSide;
 
 @end
 
@@ -48,10 +52,8 @@
     self.translatesAutoresizingMaskIntoConstraints = NO;
     
     self.backgroundColor = kDefaultThumbColor;
-    
-    UIColor *borderColor = kDefaultBorderColor;
-    self.layer.borderColor = borderColor.CGColor;
-    self.layer.borderWidth = kDefaultBorderWidth;
+    self.layer.borderWidth = superview.layer.borderWidth;
+    self.layer.borderColor = superview.layer.borderColor;
     
     [superview addSubview:self];
     
@@ -117,7 +119,7 @@
 - (void)adjustThumbFromRightSide:(BOOL)onRightSide
                         thumbGrowing:(BOOL)growing
 {
-    self.widthConstraint.constant = growing ? (CGRectGetWidth(self.frame)*0.1f) : 0.0f;
+    self.widthConstraint.constant = growing ? [self stretchedWidth] : 0.0f;
     
     // When the thumb changes size, its left side remains fixed
     // while its right side grows. This looks correct when the
@@ -126,13 +128,18 @@
     // when on the right side of the switch. Thus, when animating
     // the thumb's width while it's on the right side of the switch
     // we need to simultaneously tweak its x-location to compensate
-    if (onRightSide)
+    if (onRightSide && self.isOn)
     {
-        CGFloat directionalMultiplier = growing ? -1.0f : 1.0f;
-        self.leadingEdgeConstraint.constant += ((CGRectGetWidth(self.frame)*0.1f) * directionalMultiplier);
+        [self adjustLeadingEdgeForRightSideWithGrowthState:growing];
     }
     
-    [UIView animateWithDuration:0.1f animations:^{ [self layoutIfNeeded]; }];
+    [UIView animateWithDuration:kDefaultThumbGrowShrinkAnimationDuration
+                     animations:^{ [self layoutIfNeeded]; }
+                     completion:^(BOOL finished)
+                     {
+                         self.stretched = growing;
+                         self.onRightSide = onRightSide;
+                     }];
 }
 
 - (void)setOn:(BOOL)on
@@ -158,6 +165,40 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
+//    // Put layout into state it's supposedly already in
+//    // (This is a no-op in most cases, but in cases
+//    // where the switch has been resized, this ensures
+//    // that everything ends up where it's supposed to be)
+//    
+//    // If we're not marked as stretched...
+//    if (!self.stretched)
+//    {
+//        // ...then we shouldn't be stretched
+//        self.widthConstraint.constant = 0;
+//    }
+//    else
+//    {
+//        // If we are marked as stretched...
+//        
+//        // ...then we should be stretched
+//        self.widthConstraint.constant = [self stretchedWidth];
+//    }
+//    
+//    // And if we're not marked as being on the right....
+//    if (!self.onRightSide)
+//    {
+//        // ...then we shouldn't be horinzontally-adjusted for the right side
+//        self.leadingEdgeConstraint.constant = 0;
+//    }
+//    else
+//    {
+//        // But if we are marked as being on the right...
+//        
+//        // ...then we need to make sure we're horizontally-adjusted
+//        [self adjustLeadingEdgeForRightSideWithGrowthState:self.stretched];
+//    }
+    
     [self updateCornerRadius];
 }
 
@@ -165,7 +206,25 @@
 
 - (void)updateCornerRadius
 {
+    NSLog(@"updateCornerRadius");
+    
     self.layer.cornerRadius = (floorf(CGRectGetHeight(self.frame))/2.0f);
+}
+
+- (CGFloat)stretchedWidth
+{
+    return (CGRectGetWidth(self.frame)*kDefaultThumbGrowthFactor);
+}
+
+- (void)adjustLeadingEdgeForRightSideWithGrowthState:(BOOL)growing
+{
+    CGFloat superWidth = CGRectGetWidth(self.superview.frame);
+    CGFloat selfWidth = CGRectGetWidth(self.frame);
+    CGFloat extraWidth  = (selfWidth * kDefaultThumbGrowthFactor);
+    CGFloat normalWidth = (superWidth - selfWidth);
+    CGFloat growingWidth = (normalWidth + extraWidth - kMagicAlignmentAdjustment);
+    CGFloat shrinkingWidth = (normalWidth - extraWidth);
+    self.leadingEdgeConstraint.constant = growing ? shrinkingWidth : growingWidth;
 }
 
 @end

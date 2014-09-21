@@ -12,6 +12,7 @@
 
 #define kDefaultOffTrackTintColor [UIColor orangeColor];
 #define kDefaultOnTrackTintColor  [UIColor greenColor];
+#define kDefaultTrackBorderColor  [UIColor darkGrayColor];
 #define kDefaultOnOffAnimationDuration 0.25f
 
 @interface MMMSwitch ()
@@ -88,6 +89,12 @@
     }
 }
 
+- (void)setTrackBorderColor:(UIColor *)trackBorderColor
+{
+    _trackBorderColor = trackBorderColor;
+    self.layer.borderColor = _trackBorderColor.CGColor;
+}
+
 #pragma mark - Auto Layout Methods
 
 - (void)layoutSubviews
@@ -103,6 +110,9 @@
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.offTrackTintColor = kDefaultOffTrackTintColor;
     self.onTrackTintColor = kDefaultOnTrackTintColor;
+    self.trackBorderColor = kDefaultTrackBorderColor;
+    
+    self.layer.borderWidth = 1.0f;
     
     self.thumb = [[MMMSwitchThumb alloc] initWithSuperview:self];
     

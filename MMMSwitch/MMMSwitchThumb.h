@@ -13,8 +13,7 @@
 @property (nonatomic, assign, getter=isOn) BOOL on;
 
 @property (strong, nonatomic) UIColor *thumbColor;
-@property (strong, nonatomic) UIColor *borderColor;
-@property (assign, nonatomic) CGFloat borderWidth;
+
 
 - (instancetype)initWithSuperview:(UIView*)superview;
 
