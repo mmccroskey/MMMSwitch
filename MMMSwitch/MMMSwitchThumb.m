@@ -8,13 +8,13 @@
 
 #import "MMMSwitchThumb.h"
 
-#define notSupportedMessage "This initializer is not supported by this class; please use 'initWithSuperview' instead."
-
 #define kDefaultThumbColor  [UIColor whiteColor];
 #define kDefaultBorderColor [UIColor darkGrayColor];
 #define kDefaultBorderWidth 1.0f;
 
 @interface MMMSwitchThumb()
+
+@property (nonatomic) BOOL layoutHasBeenConfigured;
 
 @property (strong, nonatomic) NSLayoutConstraint *widthConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *leadingEdgeConstraint;
@@ -27,61 +27,7 @@
 {
     if (self = [super init])
     {
-        self.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        self.backgroundColor = kDefaultThumbColor;
-        
-        UIColor *borderColor = kDefaultBorderColor;
-        self.layer.borderColor = borderColor.CGColor;
-        self.layer.borderWidth = kDefaultBorderWidth;
-        
-        [superview addSubview:self];
-        
-        // Thumb's height should always match that of its parent
-        NSLayoutConstraint *heightConstraint = [NSLayoutConstraint
-                                 constraintWithItem:self
-                                 attribute:NSLayoutAttributeHeight
-                                 relatedBy:NSLayoutRelationEqual
-                                 toItem:superview
-                                 attribute:NSLayoutAttributeHeight
-                                 multiplier:1.0f
-                                 constant:0.0f];
-        [superview addConstraint:heightConstraint];
-        
-        // Thumb's width should start out matching its height (it will stretch on touchDown)
-        self.widthConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                            attribute:NSLayoutAttributeWidth
-                                                            relatedBy:NSLayoutRelationEqual
-                                                               toItem:self
-                                                            attribute:NSLayoutAttributeHeight
-                                                           multiplier:1.0f
-                                                             constant:0.0f];
-        [self addConstraint:self.widthConstraint];
-        
-        // Thumb's centerY should always match that of its parent
-        NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint
-                                                 constraintWithItem:self
-                                                 attribute:NSLayoutAttributeCenterY
-                                                 relatedBy:NSLayoutRelationEqual
-                                                 toItem:superview
-                                                 attribute:NSLayoutAttributeCenterY
-                                                 multiplier:1.0f
-                                                 constant:0.0f];
-        [superview addConstraint:centerYConstraint];
-        
-        // Thumb's leading edge should start out matching its parent (it will move on switch on/off)
-        self.leadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                  attribute:NSLayoutAttributeLeading
-                                                                  relatedBy:NSLayoutRelationEqual
-                                                                     toItem:superview
-                                                                  attribute:NSLayoutAttributeLeading
-                                                                 multiplier:1.0f
-                                                                   constant:0.0f];
-        [superview addConstraint:self.leadingEdgeConstraint];
-        
-        [self updateCornerRadius];
-        
-        [self layoutIfNeeded];
+        [self configureLayoutRelativeToSuperview:superview];
     }
     
     return self;
@@ -89,30 +35,74 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    return [super initWithFrame:frame];
-}
-
-#pragma mark - Unsupported Initializers
-
-- (instancetype)init __attribute__((unavailable(notSupportedMessage)))
-{
-    NSAssert(false,[NSString stringWithCString:notSupportedMessage encoding:NSUTF8StringEncoding]);
-    return nil;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder __attribute__((unavailable(notSupportedMessage)))
-{
-    NSAssert(false,[NSString stringWithCString:notSupportedMessage encoding:NSUTF8StringEncoding]);
-    return nil;
-}
-
-+ (instancetype)new __attribute__((unavailable(notSupportedMessage)))
-{
-    NSAssert(false,[NSString stringWithCString:notSupportedMessage encoding:NSUTF8StringEncoding]);
-    return nil;
+    return (self = [super initWithFrame:CGRectZero]);
 }
 
 #pragma mark - Public Methods
+
+- (void)configureLayoutRelativeToSuperview:(UIView*)superview
+{
+    NSAssert(superview, @"This method requires that superview not be nil.");
+    NSAssert(!self.layoutHasBeenConfigured, @"Layout can only be configured once per instance.");
+    
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    self.backgroundColor = kDefaultThumbColor;
+    
+    UIColor *borderColor = kDefaultBorderColor;
+    self.layer.borderColor = borderColor.CGColor;
+    self.layer.borderWidth = kDefaultBorderWidth;
+    
+    [superview addSubview:self];
+    
+    // Thumb's height should always match that of its parent
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint
+                                            constraintWithItem:self
+                                            attribute:NSLayoutAttributeHeight
+                                            relatedBy:NSLayoutRelationEqual
+                                            toItem:superview
+                                            attribute:NSLayoutAttributeHeight
+                                            multiplier:1.0f
+                                            constant:0.0f];
+    [superview addConstraint:heightConstraint];
+    
+    // Thumb's width should start out matching its height (it will stretch on touchDown)
+    self.widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                        attribute:NSLayoutAttributeWidth
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:self
+                                                        attribute:NSLayoutAttributeHeight
+                                                       multiplier:1.0f
+                                                         constant:0.0f];
+    [self addConstraint:self.widthConstraint];
+    
+    // Thumb's centerY should always match that of its parent
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint
+                                             constraintWithItem:self
+                                             attribute:NSLayoutAttributeCenterY
+                                             relatedBy:NSLayoutRelationEqual
+                                             toItem:superview
+                                             attribute:NSLayoutAttributeCenterY
+                                             multiplier:1.0f
+                                             constant:0.0f];
+    [superview addConstraint:centerYConstraint];
+    
+    // Thumb's leading edge should start out matching its parent (it will move on switch on/off)
+    self.leadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                              attribute:NSLayoutAttributeLeading
+                                                              relatedBy:NSLayoutRelationEqual
+                                                                 toItem:superview
+                                                              attribute:NSLayoutAttributeLeading
+                                                             multiplier:1.0f
+                                                               constant:0.0f];
+    [superview addConstraint:self.leadingEdgeConstraint];
+    
+    [self updateCornerRadius];
+    
+    [self layoutIfNeeded];
+    
+    self.layoutHasBeenConfigured = YES;
+}
 
 - (void)growThumbFromRightSide:(BOOL)onRightSide
 {
@@ -147,7 +137,6 @@
 
 - (void)setOn:(BOOL)on
 {
-    NSLog(@"thumb: being set to ON?: %d", on);
     if (_on == on) { return; }
     BOOL wantsRightSide = on;
     if (wantsRightSide)

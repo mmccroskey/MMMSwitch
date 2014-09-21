@@ -10,12 +10,15 @@
 
 @interface MMMSwitchThumb : UIView
 
-@property (nonatomic, assign) BOOL isTracking;
 @property (nonatomic, assign, getter=isOn) BOOL on;
+
 @property (strong, nonatomic) UIColor *thumbColor;
 @property (strong, nonatomic) UIColor *borderColor;
+@property (assign, nonatomic) CGFloat borderWidth;
 
 - (instancetype)initWithSuperview:(UIView*)superview;
+
+- (void)configureLayoutRelativeToSuperview:(UIView*)superview;
 
 - (void)growThumbFromRightSide:(BOOL)onRightSide;
 - (void)shrinkThumbFromRightSide:(BOOL)onRightSide;
