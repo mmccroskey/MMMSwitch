@@ -23,4 +23,6 @@ typedef NS_ENUM(NSUInteger, MMMSwitchThumbJustification)
 - (void)growThumbWithJustification:(MMMSwitchThumbJustification)justification;
 - (void)shrinkThumbWithJustification:(MMMSwitchThumbJustification)justification;
 
+- (void)addCornerRadiusUpdateAnimationWithDuration:(NSTimeInterval)duration;
+
 @end

@@ -19,6 +19,8 @@ static void * KVOContext = &KVOContext;
 @property (strong, nonatomic) MMMSwitchTrack *track;
 @property (strong, nonatomic) MMMSwitchThumb *thumb;
 
+@property (assign, nonatomic) BOOL switchSizeBeingAnimated;
+
 @end
 
 @implementation MMMSwitch
@@ -61,17 +63,57 @@ static void * KVOContext = &KVOContext;
 
 #pragma mark - Public Methods
 
+<<<<<<< Updated upstream
 - (void)setOn:(BOOL)on animated:(BOOL)animated
 {
     
+=======
+- (void)updateCornerRadiiWithAnimationOfDuration:(NSTimeInterval)duration
+{
+    NSLog(@"Switch updateCornerRadiiWithAnimationOfDuration");
+    
+    self.switchSizeBeingAnimated = YES;
+    
+    [CATransaction begin];
+    
+    CABasicAnimation *switchAnimation = [CABasicAnimation animationWithKeyPath:@"cornerRadius"];
+    switchAnimation.fromValue = @(self.layer.cornerRadius);
+    switchAnimation.toValue = @(floorf(CGRectGetHeight(self.frame)/2.0f));
+//    switchAnimation.fromValue = @(120);
+//    switchAnimation.toValue = @(180);
+//    switchAnimation.fromValue = @(10);
+//    switchAnimation.toValue = @(400);
+    switchAnimation.duration = duration;
+    [CATransaction setCompletionBlock:^
+    {
+        [self updateCornerRadius];
+        self.switchSizeBeingAnimated = NO;
+    }];
+    [self.layer addAnimation:switchAnimation forKey:@"switchCornerRadiusAnimation"];
+    
+    [self.thumb addCornerRadiusUpdateAnimationWithDuration:duration];
+    
+    [CATransaction commit];
+>>>>>>> Stashed changes
 }
 
 #pragma mark - Superclass Override Methods
 
 - (void)refreshCornerRadiiWithAnimationDuration:(NSTimeInterval)animationDuration
 {
+<<<<<<< Updated upstream
     [super refreshCornerRadiiWithAnimationDuration:animationDuration];
     [self.thumb refreshCornerRadiiWithAnimationDuration:animationDuration];
+=======
+    [super layoutSubviews];
+    
+    NSLog(@"Switch layoutSubviews");
+    
+    if (!self.switchSizeBeingAnimated)
+    {
+        [self updateCornerRadius];
+    }
+>>>>>>> Stashed changes
 }
 
 #pragma mark - Private Methods

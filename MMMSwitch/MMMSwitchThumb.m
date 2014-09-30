@@ -79,6 +79,70 @@
     
     [self layoutIfNeeded];
     
+<<<<<<< Updated upstream
+=======
+    self.layoutHasBeenConfigured = YES;
+}
+
+- (void)growThumbFromRightSide:(BOOL)onRightSide
+{
+    [self adjustThumbFromRightSide:onRightSide thumbGrowing:YES];
+}
+
+- (void)shrinkThumbFromRightSide:(BOOL)onRightSide
+{
+    [self adjustThumbFromRightSide:onRightSide thumbGrowing:NO];
+}
+
+- (void)adjustThumbFromRightSide:(BOOL)onRightSide
+                        thumbGrowing:(BOOL)growing
+{
+    self.widthConstraint.constant = growing ? (CGRectGetWidth(self.frame)*kDefaultThumbGrowthFactor) : 0.0f;
+    
+    [UIView animateWithDuration:kDefaultThumbGrowShrinkAnimationDuration
+                     animations:^{ [self layoutIfNeeded]; }];
+}
+
+- (void)setOn:(BOOL)on
+{
+    BOOL wantsRightSide = on;
+    if (wantsRightSide)
+    {
+        [self.superview addConstraint:self.trailingEdgeConstraint];
+        [self.superview removeConstraint:self.leadingEdgeConstraint];
+    }
+    else
+    {
+        [self.superview addConstraint:self.leadingEdgeConstraint];
+        [self.superview removeConstraint:self.trailingEdgeConstraint];
+    }
+    
+    _on = on;
+}
+
+- (void)addCornerRadiusUpdateAnimationWithDuration:(NSTimeInterval)duration
+{
+    NSLog(@"addCornerRadiusUpdateAnimationWithDuration");
+    
+    CABasicAnimation *thumbAnimation = [CABasicAnimation animationWithKeyPath:@"cornerRadius"];
+    thumbAnimation.fromValue = @(self.layer.cornerRadius);
+    thumbAnimation.toValue = @(floorf(CGRectGetHeight(self.frame)/2.0f));
+    thumbAnimation.duration = duration;
+    [CATransaction setCompletionBlock:^{ [self updateCornerRadius]; }];
+    [self.layer addAnimation:thumbAnimation forKey:@"thumbCornerRadiusAnimation"];
+}
+
+#pragma mark - Auto Layout Methods
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    
+    // Ensure things are the way they're already supposed to be
+    // (These are usually no-ops, except when switch is resizing)
+    [self setOn:self.isOn];
+>>>>>>> Stashed changes
     [self updateCornerRadius];
 }
 
