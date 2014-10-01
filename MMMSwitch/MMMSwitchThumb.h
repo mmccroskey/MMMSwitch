@@ -8,20 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, MMMSwitchThumbJustification)
-{
-    MMMSwitchThumbJustificationLeft,
-    MMMSwitchThumbJustificationRight
-};
 @interface MMMSwitchThumb : UIView
 
+@property (nonatomic, assign, getter=isOn) BOOL on;
 
-@property (nonatomic, assign) BOOL isTracking;
+@property (strong, nonatomic) UIColor *thumbColor;
 
-- (void)configureLayout;
-- (void)growThumbWithJustification:(MMMSwitchThumbJustification)justification;
-- (void)shrinkThumbWithJustification:(MMMSwitchThumbJustification)justification;
 
-- (void)addCornerRadiusUpdateAnimationWithDuration:(NSTimeInterval)duration;
+- (instancetype)initWithSuperview:(UIView*)superview;
+
+- (void)configureLayoutRelativeToSuperview:(UIView*)superview;
+
+- (void)growThumbFromRightSide:(BOOL)onRightSide;
+- (void)shrinkThumbFromRightSide:(BOOL)onRightSide;
 
 @end

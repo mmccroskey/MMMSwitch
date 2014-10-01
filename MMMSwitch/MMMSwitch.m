@@ -9,25 +9,24 @@
 #import "MMMSwitch.h"
 #import "MMMSwitchThumb.h"
 
-#define notSupportedMessage "This initializer is not supported by this class; please use 'init' instead."
-
-static void * KVOContext = &KVOContext;
+#define kDefaultOffTrackTintColor [UIColor orangeColor];
+#define kDefaultOnTrackTintColor  [UIColor greenColor];
+#define kDefaultTrackBorderColor  [UIColor darkGrayColor];
+#define kDefaultOnOffAnimationDuration 0.25f
 
 @interface MMMSwitch ()
 
 @property (strong, nonatomic) MMMSwitchThumb *thumb;
 
-@property (assign, nonatomic) BOOL switchSizeBeingAnimated;
-
 @end
 
 @implementation MMMSwitch
 
-#pragma mark - Supported Initializers
+#pragma mark - Initializers
 
 - (instancetype)init
 {
-    if (self =  [super init])
+    if (self = [super init])
     {
         [self configure];
     }
@@ -37,7 +36,7 @@ static void * KVOContext = &KVOContext;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    if (self =  [super initWithCoder:aDecoder])
+    if (self = [super initWithCoder:aDecoder])
     {
         [self configure];
     }
@@ -45,85 +44,131 @@ static void * KVOContext = &KVOContext;
     return self;
 }
 
-#pragma mark - Unsupported Initializers
-
-- (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable(notSupportedMessage)))
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    NSAssert(false,[NSString stringWithCString:notSupportedMessage encoding:NSUTF8StringEncoding]);
-    return nil;
-}
-
-+ (instancetype)new __attribute__((unavailable(notSupportedMessage)))
-{
-    NSAssert(false,[NSString stringWithCString:notSupportedMessage encoding:NSUTF8StringEncoding]);
-    return nil;
+    if (self = [super initWithFrame:frame])
+    {
+        [self configure];
+    }
+    
+    return self;
 }
 
 #pragma mark - Public Methods
 
-<<<<<<< Updated upstream
+- (void)setTrackBorderColor:(UIColor *)trackBorderColor
+{
+    _trackBorderColor = trackBorderColor;
+    self.layer.borderColor = _trackBorderColor.CGColor;
+    self.thumb.layer.borderColor = self.layer.borderColor;
+}
+
+- (void)setOn:(BOOL)on
+{
+    self.backgroundColor = on ? self.onTrackTintColor : self.offTrackTintColor;
+    
+    _on = on;
+    
+    if (self.didChangeHandler)
+    {
+        self.didChangeHandler(_on);
+    }
+}
+
 - (void)setOn:(BOOL)on animated:(BOOL)animated
 {
-    
-=======
-- (void)updateCornerRadiiWithAnimationOfDuration:(NSTimeInterval)duration
-{
-    NSLog(@"Switch updateCornerRadiiWithAnimationOfDuration");
-    
-    self.switchSizeBeingAnimated = YES;
-    
-    [CATransaction begin];
-    
-    CABasicAnimation *switchAnimation = [CABasicAnimation animationWithKeyPath:@"cornerRadius"];
-    switchAnimation.fromValue = @(self.layer.cornerRadius);
-    switchAnimation.toValue = @(floorf(CGRectGetHeight(self.frame)/2.0f));
-//    switchAnimation.fromValue = @(120);
-//    switchAnimation.toValue = @(180);
-//    switchAnimation.fromValue = @(10);
-//    switchAnimation.toValue = @(400);
-    switchAnimation.duration = duration;
-    [CATransaction setCompletionBlock:^
+    if (animated)
     {
-        [self updateCornerRadius];
-        self.switchSizeBeingAnimated = NO;
-    }];
-    [self.layer addAnimation:switchAnimation forKey:@"switchCornerRadiusAnimation"];
-    
-    [self.thumb addCornerRadiusUpdateAnimationWithDuration:duration];
-    
-    [CATransaction commit];
->>>>>>> Stashed changes
-}
-
-#pragma mark - Superclass Override Methods
-
-- (void)refreshCornerRadiiWithAnimationDuration:(NSTimeInterval)animationDuration
-{
-<<<<<<< Updated upstream
-    [super refreshCornerRadiiWithAnimationDuration:animationDuration];
-    [self.thumb refreshCornerRadiiWithAnimationDuration:animationDuration];
-=======
-    [super layoutSubviews];
-    
-    NSLog(@"Switch layoutSubviews");
-    
-    if (!self.switchSizeBeingAnimated)
-    {
-        [self updateCornerRadius];
+        __weak id weakSelf = self;
+        [UIView animateWithDuration:kDefaultOnOffAnimationDuration animations:^
+        {
+            [weakSelf setOn:on animated:NO];
+            [[(MMMSwitch*)weakSelf thumb] setOn:on];
+//            [[(MMMSwitch*)weakSelf thumb] 
+            [[(MMMSwitch*)weakSelf thumb] layoutIfNeeded];
+        }];
     }
->>>>>>> Stashed changes
+    else
+    {
+        [self setOn:on];
+        [self.thumb setOn:on];
+    }
 }
 
-#pragma mark - Private Methods
+#pragma mark - Auto Layout Methods
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self updateCornerRadius];
+}
+
+#pragma mark - Configuration Methods
 
 - (void)configure
 {
     self.translatesAutoresizingMaskIntoConstraints = NO;
-    self.thumb = [[MMMSwitchThumb alloc] init];
-    [self addSubview:self.thumb];
-    [self.thumb configureLayout];
+    self.offTrackTintColor = kDefaultOffTrackTintColor;
+    self.onTrackTintColor = kDefaultOnTrackTintColor;
+    self.trackBorderColor = kDefaultTrackBorderColor;
+    
+    self.layer.borderWidth = 1.0f;
+    
+    self.thumb = [[MMMSwitchThumb alloc] initWithSuperview:self];
     
     [self updateCornerRadius];
+    
+    [self setOn:NO];
+}
+
+- (void)updateCornerRadius
+{
+    self.layer.cornerRadius = floorf(CGRectGetHeight(self.frame)/2.0f);
+}
+
+#pragma mark - Touch Capture and Recognition Methods
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.thumb growThumbFromRightSide:self.isOn];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = touches.anyObject;
+    CGFloat xPos = [touch locationInView:self].x;
+    BOOL onRightSide = (xPos > (CGRectGetWidth(self.frame)/2.0f));
+    if (onRightSide && !(self.isOn))
+    {
+        [self setOn:YES animated:YES];
+    }
+    else if (!(onRightSide) && self.isOn)
+    {
+        [self setOn:NO animated:YES];
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.thumb shrinkThumbFromRightSide:self.isOn];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *endingTouch = touches.anyObject;
+    CGPoint endTouchLocation = [endingTouch locationInView:self];
+    CGFloat endTouchX = endTouchLocation.x;
+    CGFloat thumbXStart = CGRectGetMinX(self.thumb.frame);
+    CGFloat thumbXEnd = CGRectGetMaxX(self.thumb.frame);
+    BOOL touchInsideThumb = (endTouchX > thumbXStart && endTouchX < thumbXEnd);
+    if (!touchInsideThumb)
+    {
+        [self setOn:!self.isOn animated:YES];
+    }
+    else
+    {
+        [self.thumb shrinkThumbFromRightSide:self.isOn];
+    }
 }
 
 @end
