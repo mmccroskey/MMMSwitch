@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MMMRoundedView.h"
 
-@interface MMMSwitch : MMMRoundedView
+@interface MMMSwitch : UIControl
 
 typedef void(^MMMSwitchDidChangeHandler)(BOOL isOn);
 

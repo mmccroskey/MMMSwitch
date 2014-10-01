@@ -7,7 +7,6 @@
 //
 
 #import "MMMSwitch.h"
-#import "MMMSwitchTrack.h"
 #import "MMMSwitchThumb.h"
 
 #define notSupportedMessage "This initializer is not supported by this class; please use 'init' instead."
@@ -16,7 +15,6 @@ static void * KVOContext = &KVOContext;
 
 @interface MMMSwitch ()
 
-@property (strong, nonatomic) MMMSwitchTrack *track;
 @property (strong, nonatomic) MMMSwitchThumb *thumb;
 
 @property (assign, nonatomic) BOOL switchSizeBeingAnimated;
