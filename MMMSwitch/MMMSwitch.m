@@ -17,6 +17,7 @@
 @interface MMMSwitch ()
 
 @property (strong, nonatomic) MMMSwitchThumb *thumb;
+@property (strong, nonatomic) UITouch *currentTouch;
 
 @end
 
@@ -84,8 +85,12 @@
         {
             [weakSelf setOn:on animated:NO];
             [[(MMMSwitch*)weakSelf thumb] setOn:on];
-//            [[(MMMSwitch*)weakSelf thumb] 
             [[(MMMSwitch*)weakSelf thumb] layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            if (finished && !(self.currentTouch))
+            {
+                [self.thumb shrinkThumbFromRightSide:self.isOn];
+            }
         }];
     }
     else
@@ -130,14 +135,39 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    self.currentTouch = [touches anyObject];
+    
     [self.thumb growThumbFromRightSide:self.isOn];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = touches.anyObject;
-    CGFloat xPos = [touch locationInView:self].x;
-    BOOL onRightSide = (xPos > (CGRectGetWidth(self.frame)/2.0f));
+    
+    CGFloat oldXPos = [touch previousLocationInView:self].x;
+    CGFloat oldYPos = [touch previousLocationInView:self].y;
+    BOOL oldXPosOutOfBounds = (oldXPos <= 0 || oldXPos > CGRectGetWidth(self.frame));
+    BOOL oldYPosOutOfBounds = (oldYPos <= 0 || oldYPos > CGRectGetHeight(self.frame));
+    BOOL wasOutsideOfSelf = (oldXPosOutOfBounds || oldYPosOutOfBounds);
+    
+    CGFloat newXPos = [touch locationInView:self].x;
+    CGFloat newYPos = [touch locationInView:self].y;
+    BOOL newXPosOutOfBounds = (newXPos <= 0 || newXPos > CGRectGetWidth(self.frame));
+    BOOL newYPosOutOfBounds = (newYPos <= 0 || newYPos > CGRectGetHeight(self.frame));
+    BOOL isOutsideOfSelf = (newXPosOutOfBounds || newYPosOutOfBounds);
+    
+    if (wasOutsideOfSelf && !(isOutsideOfSelf))
+    {
+        // It used to be outside and now it's inside
+        [self.thumb growThumbFromRightSide:self.isOn];
+    }
+    else if (!(wasOutsideOfSelf) && isOutsideOfSelf)
+    {
+        // It used to be inside and now it's outside
+        [self.thumb shrinkThumbFromRightSide:self.isOn];
+    }
+    
+    BOOL onRightSide = (newXPos > (CGRectGetWidth(self.frame)/2.0f));
     if (onRightSide && !(self.isOn))
     {
         [self setOn:YES animated:YES];
@@ -156,19 +186,44 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *endingTouch = touches.anyObject;
-    CGPoint endTouchLocation = [endingTouch locationInView:self];
-    CGFloat endTouchX = endTouchLocation.x;
-    CGFloat thumbXStart = CGRectGetMinX(self.thumb.frame);
-    CGFloat thumbXEnd = CGRectGetMaxX(self.thumb.frame);
-    BOOL touchInsideThumb = (endTouchX > thumbXStart && endTouchX < thumbXEnd);
-    if (!touchInsideThumb)
+    
+    CGPoint windowEndTouchLocation = [endingTouch locationInView:self.window];
+    CGFloat accuracyBuffer = 1.0f;
+    
+    CGFloat windowEndTouchX = windowEndTouchLocation.x;
+    CGFloat flooredWindowEndTouchX = (windowEndTouchX - accuracyBuffer);
+    CGFloat ceiledWindowEndTouchX = (windowEndTouchX + accuracyBuffer);
+    CGFloat windowWidth = CGRectGetWidth(self.window.frame);
+    BOOL windowEndTouchXOutsideBounds = (flooredWindowEndTouchX < 0.0f || ceiledWindowEndTouchX > windowWidth);
+    
+    CGFloat windowEndTouchY = windowEndTouchLocation.y;
+    CGFloat flooredWindowEndTouchY = (windowEndTouchY - accuracyBuffer);
+    CGFloat ceiledWindowEndTouchY = (windowEndTouchY + accuracyBuffer);
+    CGFloat windowHeight = CGRectGetHeight(self.window.frame);
+    BOOL windowEndTouchYOutsideBounds = (flooredWindowEndTouchY < 0.0f || ceiledWindowEndTouchY > windowHeight);
+    
+    if (windowEndTouchXOutsideBounds || windowEndTouchYOutsideBounds)
     {
-        [self setOn:!self.isOn animated:YES];
+        return;
     }
     else
     {
-        [self.thumb shrinkThumbFromRightSide:self.isOn];
+        CGPoint endTouchLocation = [endingTouch locationInView:self];
+        CGFloat endTouchX = endTouchLocation.x;
+        CGFloat thumbXStart = CGRectGetMinX(self.thumb.frame);
+        CGFloat thumbXEnd = CGRectGetMaxX(self.thumb.frame);
+        BOOL touchInsideThumb = (endTouchX > thumbXStart && endTouchX < thumbXEnd);
+        if (!touchInsideThumb)
+        {
+            [self setOn:!self.isOn animated:YES];
+        }
+        else
+        {
+            [self.thumb shrinkThumbFromRightSide:self.isOn];
+        }
     }
+    
+    self.currentTouch = nil;
 }
 
 @end
