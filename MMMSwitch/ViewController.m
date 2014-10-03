@@ -22,55 +22,57 @@
 {
     [super viewDidLoad];
     
-    [self performSelector:@selector(increaseWidth) withObject:nil afterDelay:3.0f];
+    self.theSwitch.stateDidChangeHandler = ^(MMMSwitchState newState)
+    {
+        switch (newState)
+        {
+            case MMMSwitchStateOff:
+                NSLog(@"The switch is off");
+                break;
+                
+            case MMMSwitchStateSelectedUnpressedOff:
+                NSLog(@"The switch is selected, unpressed, and off");
+                break;
+                
+            case MMMSwitchStateSelectedPressedOff:
+                NSLog(@"The switch is selected, pressed, and off");
+                break;
+                
+            case MMMSwitchStateSelectedUnpressedOn:
+                NSLog(@"The switch is selected, unpressed, and on");
+                break;
+                
+            case MMMSwitchStateSelectedPressedOn:
+                NSLog(@"The switch is selected, pressed, and on");
+                break;
+                
+            case MMMSwitchStateOn:
+                NSLog(@"The switch is on");
+                break;
+                
+            default:
+                break;
+        }
+    };
+    
+//    [self performSelector:@selector(increaseWidth) withObject:nil afterDelay:3.0f];.
 }
 
 - (void)increaseWidth
 {
-<<<<<<< Updated upstream
-//    [self.view layoutIfNeeded];
-    [UIView animateWithDuration:10.0f
-                     animations:^{
-                         NSLog(@"animate!");
-                         self.switchWidthConstraint.constant *= 1.2;
-                         [self.view layoutIfNeeded];
-                         [self.theSwitch refreshCornerRadiiWithAnimationDuration:10.0f];
-                     }
-                     completion:nil];
-    
-//    self.switchWidthConstraint.constant *= 1.2;
-//    [self.view layoutIfNeeded];
-//    [self.theSwitch refreshCornerRadiiWithAnimationDuration:0];
-=======
-    [self.theSwitch updateCornerRadiiWithAnimationOfDuration:3.0f];
-//    [UIView animateWithDuration:3.0f animations:^
-//    {
-//        self.switchWidthConstraint.constant *= 1.2;
-//        [self.view layoutIfNeeded];
-//    }];
-    
-    self.switchWidthConstraint.constant *= 1.2f;
-    [UIView animateKeyframesWithDuration:3.0f
-                                   delay:0.0f
-                                 options:0 animations:^
-    {
-        [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:0.5 animations:^{ [self.view layoutIfNeeded]; }];
-        [UIView addKeyframeWithRelativeStartTime:0.5 relativeDuration:0.5 animations:^{ [self.theSwitch updateCornerRadiiWithAnimationOfDuration:1.5f]; }];
-    } completion:nil];
+    self.switchWidthConstraint.constant *= 1.2;
+    [self.view layoutIfNeeded];
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
               withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    NSLog(@"transitioning!!!");
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
+    self.theSwitch.alpha = 0.0f;
+//    [UIView animateWithDuration:0.1f animations:^{ self.theSwitch.alpha = 0.0f; }];
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
     {
-        NSLog(@"transition duration: %f", [context transitionDuration]);
-        [self.theSwitch updateCornerRadiiWithAnimationOfDuration:[context transitionDuration]];
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        NSLog(@"animations complete");
+        [UIView animateWithDuration:0.1f animations:^{ self.theSwitch.alpha = 1.0f; }];
     }];
->>>>>>> Stashed changes
 }
 
 @end

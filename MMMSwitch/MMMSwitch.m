@@ -14,6 +14,8 @@
 #define kDefaultTrackBorderColor  [UIColor darkGrayColor];
 #define kDefaultOnOffAnimationDuration 0.25f
 
+static void * XXContext = &XXContext;
+
 @interface MMMSwitch ()
 
 @property (strong, nonatomic) MMMSwitchThumb *thumb;
@@ -23,7 +25,14 @@
 
 @implementation MMMSwitch
 
-#pragma mark - Initializers
+#pragma mark - Life-Cycle and KVO Methods
+
+- (void)dealloc
+{
+    [self removeObserver:self
+              forKeyPath:NSStringFromSelector(@selector(currentState))
+                 context:XXContext];
+}
 
 - (instancetype)init
 {
@@ -55,6 +64,51 @@
     return self;
 }
 
+- (void)configure
+{
+    [self addObserver:self
+           forKeyPath:NSStringFromSelector(@selector(currentState))
+              options:NSKeyValueObservingOptionNew
+              context:XXContext];
+    
+    self.currentState = MMMSwitchStateOff;
+    
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.offTrackTintColor = kDefaultOffTrackTintColor;
+    self.onTrackTintColor = kDefaultOnTrackTintColor;
+    self.trackBorderColor = kDefaultTrackBorderColor;
+    
+    self.layer.borderWidth = 1.0f;
+    
+    self.thumb = [[MMMSwitchThumb alloc] initWithSuperview:self];
+    
+    [self updateCornerRadius];
+    
+    [self setOn:NO];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    BOOL contextMatches = (context == XXContext);
+    BOOL objectMatches = ([object isEqual:self]);
+    BOOL keyPathMatches = ([keyPath isEqualToString:NSStringFromSelector(@selector(currentState))]);
+    if (contextMatches && objectMatches && keyPathMatches)
+    {
+        if (self.stateDidChangeHandler)
+        {
+            id newValue = change[NSKeyValueChangeNewKey];
+            if ([newValue isKindOfClass:[NSNumber class]])
+            {
+                MMMSwitchState newState = [(NSNumber*)newValue integerValue];
+                self.stateDidChangeHandler(newState);
+            }
+        }
+    }
+}
+
 #pragma mark - Public Methods
 
 - (void)setTrackBorderColor:(UIColor *)trackBorderColor
@@ -69,11 +123,6 @@
     self.backgroundColor = on ? self.onTrackTintColor : self.offTrackTintColor;
     
     _on = on;
-    
-    if (self.didChangeHandler)
-    {
-        self.didChangeHandler(_on);
-    }
 }
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated
@@ -90,6 +139,8 @@
             if (finished && !(self.currentTouch))
             {
                 [self.thumb shrinkThumbFromRightSide:self.isOn];
+                
+                self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
             }
         }];
     }
@@ -110,22 +161,6 @@
 
 #pragma mark - Configuration Methods
 
-- (void)configure
-{
-    self.translatesAutoresizingMaskIntoConstraints = NO;
-    self.offTrackTintColor = kDefaultOffTrackTintColor;
-    self.onTrackTintColor = kDefaultOnTrackTintColor;
-    self.trackBorderColor = kDefaultTrackBorderColor;
-    
-    self.layer.borderWidth = 1.0f;
-    
-    self.thumb = [[MMMSwitchThumb alloc] initWithSuperview:self];
-    
-    [self updateCornerRadius];
-    
-    [self setOn:NO];
-}
-
 - (void)updateCornerRadius
 {
     self.layer.cornerRadius = floorf(CGRectGetHeight(self.frame)/2.0f);
@@ -136,6 +171,8 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     self.currentTouch = [touches anyObject];
+    
+    self.currentState = MMMSwitchStateSelectedPressedOff;
     
     [self.thumb growThumbFromRightSide:self.isOn];
 }
@@ -156,31 +193,137 @@
     BOOL newYPosOutOfBounds = (newYPos <= 0 || newYPos > CGRectGetHeight(self.frame));
     BOOL isOutsideOfSelf = (newXPosOutOfBounds || newYPosOutOfBounds);
     
+    BOOL onRightSide = (newXPos > (CGRectGetWidth(self.frame)/2.0f));
+    
     if (wasOutsideOfSelf && !(isOutsideOfSelf))
     {
         // It used to be outside and now it's inside
+        
         [self.thumb growThumbFromRightSide:self.isOn];
+        
+        if (self.isOn)
+        {
+            if (onRightSide)
+            {
+                if (self.currentState != MMMSwitchStateSelectedPressedOn)
+                {
+                    self.currentState = MMMSwitchStateSelectedPressedOn;
+                }
+            }
+            else
+            {
+                if (self.currentState != MMMSwitchStateSelectedPressedOff)
+                {
+                    self.currentState = MMMSwitchStateSelectedPressedOff;
+                }
+            }
+        }
+        else
+        {
+            if (onRightSide)
+            {
+                if (self.currentState != MMMSwitchStateSelectedPressedOn)
+                {
+                    self.currentState = MMMSwitchStateSelectedPressedOn;
+                }
+            }
+            else
+            {
+                if (self.currentState != MMMSwitchStateSelectedPressedOff)
+                {
+                    self.currentState = MMMSwitchStateSelectedPressedOff;
+                }
+            }
+            
+        }
     }
     else if (!(wasOutsideOfSelf) && isOutsideOfSelf)
     {
         // It used to be inside and now it's outside
+        
         [self.thumb shrinkThumbFromRightSide:self.isOn];
+        
+        if (self.isOn)
+        {
+            if (onRightSide)
+            {
+                if (self.currentState != MMMSwitchStateSelectedUnpressedOn)
+                {
+                    self.currentState = MMMSwitchStateSelectedUnpressedOn;
+                }
+            }
+            else
+            {
+                if (self.currentState != MMMSwitchStateSelectedUnpressedOff)
+                {
+                    self.currentState = MMMSwitchStateSelectedUnpressedOff;
+                }
+            }
+        }
+        else
+        {
+            if (onRightSide)
+            {
+                if (self.currentState != MMMSwitchStateSelectedUnpressedOn)
+                {
+                    self.currentState = MMMSwitchStateSelectedUnpressedOn;
+                }
+            }
+            else
+            {
+                if (self.currentState != MMMSwitchStateSelectedUnpressedOff)
+                {
+                    self.currentState = MMMSwitchStateSelectedUnpressedOff;
+                }
+            }
+            
+        }
     }
     
-    BOOL onRightSide = (newXPos > (CGRectGetWidth(self.frame)/2.0f));
     if (onRightSide && !(self.isOn))
     {
         [self setOn:YES animated:YES];
+        if (!(isOutsideOfSelf))
+        {
+            self.currentState = MMMSwitchStateSelectedPressedOn;
+        }
+        else
+        {
+            self.currentState = MMMSwitchStateSelectedUnpressedOn;
+        }
     }
     else if (!(onRightSide) && self.isOn)
     {
         [self setOn:NO animated:YES];
+        if (!(isOutsideOfSelf))
+        {
+            self.currentState = MMMSwitchStateSelectedPressedOff;
+        }
+        else
+        {
+            self.currentState = MMMSwitchStateSelectedUnpressedOff;
+        }
     }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.thumb shrinkThumbFromRightSide:self.isOn];
+    
+    if (self.isOn)
+    {
+        if (self.currentState != MMMSwitchStateOn)
+        {
+            self.currentState = MMMSwitchStateOn;
+        }
+    }
+    else
+    {
+        if (self.currentState != MMMSwitchStateOff)
+        {
+            self.currentState = MMMSwitchStateOff;
+        }
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -204,22 +347,69 @@
     
     if (windowEndTouchXOutsideBounds || windowEndTouchYOutsideBounds)
     {
+        if (self.isOn)
+        {
+            if (self.currentState != MMMSwitchStateOn)
+            {
+                self.currentState = MMMSwitchStateOn;
+            }
+        }
+        else
+        {
+            if (self.currentState != MMMSwitchStateOff)
+            {
+                self.currentState = MMMSwitchStateOff;
+            }
+        }
+        
         return;
     }
     else
     {
         CGPoint endTouchLocation = [endingTouch locationInView:self];
         CGFloat endTouchX = endTouchLocation.x;
+        CGFloat endTouchY = endTouchLocation.y;
         CGFloat thumbXStart = CGRectGetMinX(self.thumb.frame);
         CGFloat thumbXEnd = CGRectGetMaxX(self.thumb.frame);
-        BOOL touchInsideThumb = (endTouchX > thumbXStart && endTouchX < thumbXEnd);
-        if (!touchInsideThumb)
+        CGFloat thumbYStart = CGRectGetMinY(self.thumb.frame);
+        CGFloat thumbYEnd = CGRectGetMaxY(self.thumb.frame);
+        CGFloat switchXStart = CGRectGetMinX(self.bounds);
+        CGFloat switchXEnd = CGRectGetMaxX(self.bounds);
+        CGFloat switchYStart = CGRectGetMinY(self.bounds);
+        CGFloat switchYEnd = CGRectGetMaxY(self.bounds);
+        BOOL touchInsideThumbX = (endTouchX > thumbXStart && endTouchX < thumbXEnd);
+        BOOL touchInsideThumbY = (endTouchY > thumbYStart && endTouchY < thumbYEnd);
+        BOOL touchInsideThumb = (touchInsideThumbX && touchInsideThumbY);
+        BOOL touchInsideSwitchX = (endTouchX > switchXStart && endTouchX < switchXEnd);
+        BOOL touchInsideSwitchY = (endTouchY > switchYStart && endTouchY < switchYEnd);
+        BOOL touchInsideSwitch = (touchInsideSwitchX && touchInsideSwitchY);
+        
+        if (touchInsideThumb && touchInsideSwitch)
+        {
+            if (self.isOn)
+            {
+                if (self.currentState != MMMSwitchStateOn)
+                {
+                    self.currentState = MMMSwitchStateOn;
+                }
+            }
+            else
+            {
+                if (self.currentState != MMMSwitchStateOff)
+                {
+                    self.currentState = MMMSwitchStateOff;
+                }
+            }
+            
+            [self.thumb shrinkThumbFromRightSide:self.isOn];
+        }
+        else if (!(touchInsideThumb) && touchInsideSwitch)
         {
             [self setOn:!self.isOn animated:YES];
         }
-        else
+        else if (!(touchInsideSwitch) && !(touchInsideSwitch))
         {
-            [self.thumb shrinkThumbFromRightSide:self.isOn];
+            [self setOn:self.isOn animated:YES];
         }
     }
     
