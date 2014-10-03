@@ -9,7 +9,7 @@
 #import "MMMSwitch.h"
 #import "MMMSwitchThumb.h"
 
-#define kDefaultOffTrackTintColor [UIColor orangeColor];
+#define kDefaultOffTrackTintColor [UIColor colorWithRed:0.9f green:0.9f blue:0.9f alpha:1.0f];
 #define kDefaultOnTrackTintColor  [UIColor greenColor];
 #define kDefaultTrackBorderColor  [UIColor darkGrayColor];
 #define kDefaultOnOffAnimationDuration 0.25f
