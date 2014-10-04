@@ -15,7 +15,6 @@
 		8DFC1FB219C6312D00EDA411 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FB019C6312D00EDA411 /* LaunchScreen.xib */; };
 		8DFC1FBE19C6312D00EDA411 /* MMMSwitchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FBD19C6312D00EDA411 /* MMMSwitchTests.m */; };
 		8DFC1FC919C6316500EDA411 /* MMMSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FC819C6316500EDA411 /* MMMSwitch.m */; };
-		8DFC1FCC19C633DC00EDA411 /* MMMSwitchThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FCB19C633DC00EDA411 /* MMMSwitchThumb.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +43,6 @@
 		8DFC1FBD19C6312D00EDA411 /* MMMSwitchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMMSwitchTests.m; sourceTree = "<group>"; };
 		8DFC1FC719C6316500EDA411 /* MMMSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMSwitch.h; sourceTree = "<group>"; };
 		8DFC1FC819C6316500EDA411 /* MMMSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMSwitch.m; sourceTree = "<group>"; };
-		8DFC1FCA19C633DC00EDA411 /* MMMSwitchThumb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMSwitchThumb.h; sourceTree = "<group>"; };
-		8DFC1FCB19C633DC00EDA411 /* MMMSwitchThumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMSwitchThumb.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +94,6 @@
 				8DFC1FA119C6312D00EDA411 /* Supporting Files */,
 				8DFC1FC719C6316500EDA411 /* MMMSwitch.h */,
 				8DFC1FC819C6316500EDA411 /* MMMSwitch.m */,
-				8DFC1FCA19C633DC00EDA411 /* MMMSwitchThumb.h */,
-				8DFC1FCB19C633DC00EDA411 /* MMMSwitchThumb.m */,
 			);
 			path = MMMSwitch;
 			sourceTree = "<group>";
@@ -229,7 +224,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DFC1FCC19C633DC00EDA411 /* MMMSwitchThumb.m in Sources */,
 				8DFC1FAA19C6312D00EDA411 /* ViewController.m in Sources */,
 				8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */,
 				8DFC1FA419C6312D00EDA411 /* main.m in Sources */,
