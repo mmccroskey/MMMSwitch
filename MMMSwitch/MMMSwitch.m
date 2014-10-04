@@ -172,7 +172,7 @@ static void * XXContext = &XXContext;
 {
     self.currentTouch = [touches anyObject];
     
-    self.currentState = MMMSwitchStateSelectedPressedOff;
+    self.currentState = self.isOn ? MMMSwitchStateSelectedPressedOn : MMMSwitchStateSelectedPressedOff;
     
     [self.thumb growThumbFromRightSide:self.isOn];
 }
@@ -201,41 +201,7 @@ static void * XXContext = &XXContext;
         
         [self.thumb growThumbFromRightSide:self.isOn];
         
-        if (self.isOn)
-        {
-            if (onRightSide)
-            {
-                if (self.currentState != MMMSwitchStateSelectedPressedOn)
-                {
-                    self.currentState = MMMSwitchStateSelectedPressedOn;
-                }
-            }
-            else
-            {
-                if (self.currentState != MMMSwitchStateSelectedPressedOff)
-                {
-                    self.currentState = MMMSwitchStateSelectedPressedOff;
-                }
-            }
-        }
-        else
-        {
-            if (onRightSide)
-            {
-                if (self.currentState != MMMSwitchStateSelectedPressedOn)
-                {
-                    self.currentState = MMMSwitchStateSelectedPressedOn;
-                }
-            }
-            else
-            {
-                if (self.currentState != MMMSwitchStateSelectedPressedOff)
-                {
-                    self.currentState = MMMSwitchStateSelectedPressedOff;
-                }
-            }
-            
-        }
+        self.currentState = onRightSide ? MMMSwitchStateSelectedPressedOn : MMMSwitchStateSelectedPressedOff;
     }
     else if (!(wasOutsideOfSelf) && isOutsideOfSelf)
     {
@@ -243,66 +209,20 @@ static void * XXContext = &XXContext;
         
         [self.thumb shrinkThumbFromRightSide:self.isOn];
         
-        if (self.isOn)
-        {
-            if (onRightSide)
-            {
-                if (self.currentState != MMMSwitchStateSelectedUnpressedOn)
-                {
-                    self.currentState = MMMSwitchStateSelectedUnpressedOn;
-                }
-            }
-            else
-            {
-                if (self.currentState != MMMSwitchStateSelectedUnpressedOff)
-                {
-                    self.currentState = MMMSwitchStateSelectedUnpressedOff;
-                }
-            }
-        }
-        else
-        {
-            if (onRightSide)
-            {
-                if (self.currentState != MMMSwitchStateSelectedUnpressedOn)
-                {
-                    self.currentState = MMMSwitchStateSelectedUnpressedOn;
-                }
-            }
-            else
-            {
-                if (self.currentState != MMMSwitchStateSelectedUnpressedOff)
-                {
-                    self.currentState = MMMSwitchStateSelectedUnpressedOff;
-                }
-            }
-            
-        }
+        self.currentState = onRightSide ? MMMSwitchStateSelectedUnpressedOn : MMMSwitchStateSelectedUnpressedOff;
     }
     
     if (onRightSide && !(self.isOn))
     {
         [self setOn:YES animated:YES];
-        if (!(isOutsideOfSelf))
-        {
-            self.currentState = MMMSwitchStateSelectedPressedOn;
-        }
-        else
-        {
-            self.currentState = MMMSwitchStateSelectedUnpressedOn;
-        }
+        
+        self.currentState = isOutsideOfSelf ? MMMSwitchStateSelectedUnpressedOn : MMMSwitchStateSelectedPressedOn;
     }
     else if (!(onRightSide) && self.isOn)
     {
         [self setOn:NO animated:YES];
-        if (!(isOutsideOfSelf))
-        {
-            self.currentState = MMMSwitchStateSelectedPressedOff;
-        }
-        else
-        {
-            self.currentState = MMMSwitchStateSelectedUnpressedOff;
-        }
+        
+        self.currentState = isOutsideOfSelf ? MMMSwitchStateSelectedUnpressedOff : MMMSwitchStateSelectedPressedOff;
     }
 }
 
@@ -310,20 +230,7 @@ static void * XXContext = &XXContext;
 {
     [self.thumb shrinkThumbFromRightSide:self.isOn];
     
-    if (self.isOn)
-    {
-        if (self.currentState != MMMSwitchStateOn)
-        {
-            self.currentState = MMMSwitchStateOn;
-        }
-    }
-    else
-    {
-        if (self.currentState != MMMSwitchStateOff)
-        {
-            self.currentState = MMMSwitchStateOff;
-        }
-    }
+    self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -347,20 +254,7 @@ static void * XXContext = &XXContext;
     
     if (windowEndTouchXOutsideBounds || windowEndTouchYOutsideBounds)
     {
-        if (self.isOn)
-        {
-            if (self.currentState != MMMSwitchStateOn)
-            {
-                self.currentState = MMMSwitchStateOn;
-            }
-        }
-        else
-        {
-            if (self.currentState != MMMSwitchStateOff)
-            {
-                self.currentState = MMMSwitchStateOff;
-            }
-        }
+        self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
         
         return;
     }
@@ -386,20 +280,7 @@ static void * XXContext = &XXContext;
         
         if (touchInsideThumb && touchInsideSwitch)
         {
-            if (self.isOn)
-            {
-                if (self.currentState != MMMSwitchStateOn)
-                {
-                    self.currentState = MMMSwitchStateOn;
-                }
-            }
-            else
-            {
-                if (self.currentState != MMMSwitchStateOff)
-                {
-                    self.currentState = MMMSwitchStateOff;
-                }
-            }
+            self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
             
             [self.thumb shrinkThumbFromRightSide:self.isOn];
         }
