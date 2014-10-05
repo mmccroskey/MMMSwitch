@@ -27,14 +27,25 @@
                                     </constraint>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sby-BS-IBG">
+                                <rect key="frame" x="256" y="492" width="88" height="88"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Sby-BS-IBG" secondAttribute="height" multiplier="1:1" id="WPs-69-KWU"/>
+                                    <constraint firstAttribute="width" constant="88" id="c7N-ow-rkG"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WnL-HA-abN" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="71s-9x-9s2"/>
                             <constraint firstItem="WnL-HA-abN" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="9PO-rb-jpJ"/>
+                            <constraint firstAttribute="centerX" secondItem="Sby-BS-IBG" secondAttribute="centerX" id="A3i-4y-CaX"/>
+                            <constraint firstAttribute="bottom" secondItem="Sby-BS-IBG" secondAttribute="bottom" constant="20" id="myX-pf-AxP"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="colorSquare" destination="Sby-BS-IBG" id="cee-eX-JdO"/>
                         <outlet property="switchWidthConstraint" destination="wC6-LW-XWc" id="5vh-5l-ldg"/>
                         <outlet property="theSwitch" destination="WnL-HA-abN" id="gyP-B3-A8O"/>
                     </connections>
