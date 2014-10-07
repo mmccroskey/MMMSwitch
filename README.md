@@ -110,7 +110,7 @@ in the on position
 on the switch (either on the thumb or elsewhere), hasn't yet touched
 up, has kept their finger within the bounds of the switch (as opposed
 to dragging it outside the bounds), and the switch is in the on position
-* `MMMSwitchStateOff` - The switch is completely on, and the user
+* `MMMSwitchStateOn` - The switch is completely on, and the user
 is not interacting with it in any way
 
 ## Requirements
