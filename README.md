@@ -82,6 +82,37 @@ We then customize the look-and-feel of the switch, which you can skip if you're 
 
 Finally, we use the `stateDidChangeHandler` to get called back whenever the state of the switch changes. `MMMSwitch` supports a rich concept of state, but for some uses, this is just too much info. If that's the case for you, you can just do as we've done above, and check `MMMSwitch`'s `isOn` property whenever the callback fires. Alternatively, the full richness of state is available to you via the callback's `newState` property if you want it.
 
+## Switch States Explained
+
+At all times, the switch is in one of the six states detailed below. Each state indicates:
+
+1. Whether the switch is currently in the off or on position (`Off` vs. `On`)
+2. Whether the user is in the middle of an interaction with the switch (`Selected` vs. `Unselected`)
+3. Whether the user is actually pressing the switch (`Pressed` vs. `Unpressed`)
+
+Here are the states:
+
+* `MMMSwitchStateOff` - The switch is completely off, and the user
+is not interacting with it in any way
+* `MMMSwitchStateSelectedUnpressedOff` - The user has touched down
+on the switch (either on the thumb or elsewhere), hasn't yet touched
+up, but has drug their finger off of the switch, and the switch is 
+in the off position
+* `MMMSwitchStateSelectedPressedOff` - The user has touched down
+on the switch (either on the thumb or elsewhere), hasn't yet touched
+up, has kept their finger within the bounds of the switch (as opposed 
+to dragging it outside the bounds), and the switch is in the off position
+* `MMMSwitchStateSelectedUnpressedOn` - The user has touched down
+on the switch (either on the thumb or elsewhere), hasn't yet touched
+up, but has drug their finger off of the switch, and the switch is
+in the on position
+* `MMMSwitchStateSelectedPressedOn` - The user has touched down
+on the switch (either on the thumb or elsewhere), hasn't yet touched
+up, has kept their finger within the bounds of the switch (as opposed
+to dragging it outside the bounds), and the switch is in the on position
+* `MMMSwitchStateOff` - The switch is completely on, and the user
+is not interacting with it in any way
+
 ## Requirements
 
 Because `MMMSwitch` requires Auto Layout, it must be compiled using the iOS 6 SDK or later.
