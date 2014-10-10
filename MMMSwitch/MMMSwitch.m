@@ -12,7 +12,7 @@
 #pragma mark - MMMSwitchThumb Class
 
 
-#define kDefaultThumbColor  [UIColor whiteColor];
+#define kDefaultThumbColor [UIColor whiteColor];
 #define kDefaultThumbGrowShrinkAnimationDuration 0.1f
 #define kDefaultThumbGrowthFactor 0.1f
 
@@ -22,18 +22,14 @@
 
 @property (strong, nonatomic) UIColor *thumbColor;
 
-@property (assign, nonatomic) BOOL layoutHasBeenConfigured;
-
 @property (strong, nonatomic) NSLayoutConstraint *widthConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *leadingEdgeConstraint;
 @property (strong, nonatomic) NSLayoutConstraint *trailingEdgeConstraint;
 
 - (instancetype)initWithSuperview:(UIView*)superview;
 
-- (void)configureLayoutRelativeToSuperview:(UIView*)superview;
-
-- (void)growThumbFromRightSide:(BOOL)onRightSide;
-- (void)shrinkThumbFromRightSide:(BOOL)onRightSide;
+- (void)grow;
+- (void)shrink;
 
 @end
 
@@ -43,104 +39,93 @@
 {
     if (self = [super init])
     {
-        [self configureLayoutRelativeToSuperview:superview];
+        NSAssert(superview, @"This method requires that superview not be nil.");
+        
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        self.backgroundColor = kDefaultThumbColor;
+        
+        // Thumb inherits its borders from the switch as a whole
+        self.layer.borderWidth = superview.layer.borderWidth;
+        self.layer.borderColor = superview.layer.borderColor;
+        
+        [superview addSubview:self];
+        
+        // Thumb's height should always match that of its parent
+        NSLayoutConstraint *heightConstraint = [NSLayoutConstraint
+                                                constraintWithItem:self
+                                                attribute:NSLayoutAttributeHeight
+                                                relatedBy:NSLayoutRelationEqual
+                                                toItem:superview
+                                                attribute:NSLayoutAttributeHeight
+                                                multiplier:1.0f
+                                                constant:0.0f];
+        [superview addConstraint:heightConstraint];
+        
+        // Thumb's width should start out matching its height (it will stretch on touchDown)
+        self.widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                            attribute:NSLayoutAttributeWidth
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:self
+                                                            attribute:NSLayoutAttributeHeight
+                                                           multiplier:1.0f
+                                                             constant:0.0f];
+        [self addConstraint:self.widthConstraint];
+        
+        // Thumb's centerY should always match that of its parent
+        NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint
+                                                 constraintWithItem:self
+                                                 attribute:NSLayoutAttributeCenterY
+                                                 relatedBy:NSLayoutRelationEqual
+                                                 toItem:superview
+                                                 attribute:NSLayoutAttributeCenterY
+                                                 multiplier:1.0f
+                                                 constant:0.0f];
+        [superview addConstraint:centerYConstraint];
+        
+        // When the switch is off, thumb's leading edge should match its parent
+        // (We'll start off this way)
+        self.leadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                  attribute:NSLayoutAttributeLeading
+                                                                  relatedBy:NSLayoutRelationEqual
+                                                                     toItem:superview
+                                                                  attribute:NSLayoutAttributeLeading
+                                                                 multiplier:1.0f
+                                                                   constant:0.0f];
+        [superview addConstraint:self.leadingEdgeConstraint];
+        
+        // When the switch is on, thumb's trailing edge should match its parent
+        // (We'll switch to this one when switch turns on)
+        self.trailingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:superview
+                                                                   attribute:NSLayoutAttributeTrailing
+                                                                  multiplier:1.0f
+                                                                    constant:0.0f];
+        // NOTE that we don't add this constraint yet
+        
+        [self updateCornerRadius];
+        
+        [self layoutIfNeeded];
     }
     
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
+#pragma mark - MMMSwitchThumb: "Public" Methods
+
+- (void)grow
 {
-    return (self = [super initWithFrame:CGRectZero]);
+    [self adjustThumbByGrowing:YES];
 }
 
-#pragma mark - MMMSwitchThumb: Public Methods
-
-- (void)configureLayoutRelativeToSuperview:(UIView*)superview
+- (void)shrink
 {
-    NSAssert(superview, @"This method requires that superview not be nil.");
-    NSAssert(!self.layoutHasBeenConfigured, @"Layout can only be configured once per instance.");
-    
-    self.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    self.backgroundColor = kDefaultThumbColor;
-    self.layer.borderWidth = superview.layer.borderWidth;
-    self.layer.borderColor = superview.layer.borderColor;
-    
-    [superview addSubview:self];
-    
-    // Thumb's height should always match that of its parent
-    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint
-                                            constraintWithItem:self
-                                            attribute:NSLayoutAttributeHeight
-                                            relatedBy:NSLayoutRelationEqual
-                                            toItem:superview
-                                            attribute:NSLayoutAttributeHeight
-                                            multiplier:1.0f
-                                            constant:0.0f];
-    [superview addConstraint:heightConstraint];
-    
-    // Thumb's width should start out matching its height (it will stretch on touchDown)
-    self.widthConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                        attribute:NSLayoutAttributeWidth
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:self
-                                                        attribute:NSLayoutAttributeHeight
-                                                       multiplier:1.0f
-                                                         constant:0.0f];
-    [self addConstraint:self.widthConstraint];
-    
-    // Thumb's centerY should always match that of its parent
-    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint
-                                             constraintWithItem:self
-                                             attribute:NSLayoutAttributeCenterY
-                                             relatedBy:NSLayoutRelationEqual
-                                             toItem:superview
-                                             attribute:NSLayoutAttributeCenterY
-                                             multiplier:1.0f
-                                             constant:0.0f];
-    [superview addConstraint:centerYConstraint];
-    
-    // When the switch is off, thumb's leading edge should match its parent
-    // (We'll start off this way)
-    self.leadingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                              attribute:NSLayoutAttributeLeading
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:superview
-                                                              attribute:NSLayoutAttributeLeading
-                                                             multiplier:1.0f
-                                                               constant:0.0f];
-    [superview addConstraint:self.leadingEdgeConstraint];
-    
-    // When the switch is on, thumb's trailing edge should match its parent
-    // (We'll switch to this one when switch turns on)
-    self.trailingEdgeConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                               attribute:NSLayoutAttributeTrailing
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:superview
-                                                               attribute:NSLayoutAttributeTrailing
-                                                              multiplier:1.0f
-                                                                constant:0.0f];
-    
-    [self updateCornerRadius];
-    
-    [self layoutIfNeeded];
-    
-    self.layoutHasBeenConfigured = YES;
+    [self adjustThumbByGrowing:NO];
 }
 
-- (void)growThumbFromRightSide:(BOOL)onRightSide
-{
-    [self adjustThumbFromRightSide:onRightSide thumbGrowing:YES];
-}
-
-- (void)shrinkThumbFromRightSide:(BOOL)onRightSide
-{
-    [self adjustThumbFromRightSide:onRightSide thumbGrowing:NO];
-}
-
-- (void)adjustThumbFromRightSide:(BOOL)onRightSide
-                    thumbGrowing:(BOOL)growing
+- (void)adjustThumbByGrowing:(BOOL)growing
 {
     self.widthConstraint.constant = growing ? (CGRectGetWidth(self.frame)*kDefaultThumbGrowthFactor) : 0.0f;
     
@@ -171,7 +156,6 @@
 {
     [super layoutSubviews];
     
-    
     // Ensure things are the way they're already supposed to be
     // (These are usually no-ops, except when switch is resizing)
     [self setOn:self.isOn];
@@ -182,6 +166,7 @@
 
 - (void)updateCornerRadius
 {
+    // Make sure the thumb is still circular
     self.layer.cornerRadius = (floorf(CGRectGetHeight(self.frame))/2.0f);
 }
 
@@ -196,7 +181,7 @@
 #define kDefaultTrackBorderColor  [UIColor darkGrayColor];
 #define kDefaultOnOffAnimationDuration 0.25f
 
-static void * XXContext = &XXContext;
+static void * KVOContext = &KVOContext;
 
 @interface MMMSwitch ()
 
@@ -213,7 +198,7 @@ static void * XXContext = &XXContext;
 {
     [self removeObserver:self
               forKeyPath:NSStringFromSelector(@selector(currentState))
-                 context:XXContext];
+                 context:KVOContext];
 }
 
 - (instancetype)init
@@ -251,7 +236,7 @@ static void * XXContext = &XXContext;
     [self addObserver:self
            forKeyPath:NSStringFromSelector(@selector(currentState))
               options:NSKeyValueObservingOptionNew
-              context:XXContext];
+              context:KVOContext];
     
     self.currentState = MMMSwitchStateOff;
     
@@ -274,13 +259,15 @@ static void * XXContext = &XXContext;
                         change:(NSDictionary *)change
                        context:(void *)context
 {
-    BOOL contextMatches = (context == XXContext);
+    BOOL contextMatches = (context == KVOContext);
     BOOL objectMatches = ([object isEqual:self]);
     BOOL keyPathMatches = ([keyPath isEqualToString:NSStringFromSelector(@selector(currentState))]);
     if (contextMatches && objectMatches && keyPathMatches)
     {
+        // If the user has set a stateDidChangeHandler...
         if (self.stateDidChangeHandler)
         {
+            // ...then call it with the latest state every time the state changes
             id newValue = change[NSKeyValueChangeNewKey];
             if ([newValue isKindOfClass:[NSNumber class]])
             {
@@ -320,7 +307,7 @@ static void * XXContext = &XXContext;
         } completion:^(BOOL finished) {
             if (finished && !(self.currentTouch))
             {
-                [self.thumb shrinkThumbFromRightSide:self.isOn];
+                [self.thumb shrink];
                 
                 self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
             }
@@ -345,6 +332,7 @@ static void * XXContext = &XXContext;
 
 - (void)updateCornerRadius
 {
+    // Make sure the switch looks like a pill
     self.layer.cornerRadius = floorf(CGRectGetHeight(self.frame)/2.0f);
 }
 
@@ -352,36 +340,45 @@ static void * XXContext = &XXContext;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    // This is used in conjunction with its inverse in
+    // touchesEnded below to determine when the user began
+    // to move the switch and then lifted their finger part-way
     self.currentTouch = [touches anyObject];
     
     self.currentState = self.isOn ? MMMSwitchStateSelectedPressedOn : MMMSwitchStateSelectedPressedOff;
     
-    [self.thumb growThumbFromRightSide:self.isOn];
+    // User has touched down, so make the thumb fatter
+    [self.thumb grow];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    // Grab the current touch
     UITouch *touch = touches.anyObject;
     
+    // Determine whether user's finger was previously outside the switch
     CGFloat oldXPos = [touch previousLocationInView:self].x;
     CGFloat oldYPos = [touch previousLocationInView:self].y;
     BOOL oldXPosOutOfBounds = (oldXPos <= 0 || oldXPos > CGRectGetWidth(self.frame));
     BOOL oldYPosOutOfBounds = (oldYPos <= 0 || oldYPos > CGRectGetHeight(self.frame));
     BOOL wasOutsideOfSelf = (oldXPosOutOfBounds || oldYPosOutOfBounds);
     
+    // Determine whether user's finger is currently outside the switch
     CGFloat newXPos = [touch locationInView:self].x;
     CGFloat newYPos = [touch locationInView:self].y;
     BOOL newXPosOutOfBounds = (newXPos <= 0 || newXPos > CGRectGetWidth(self.frame));
     BOOL newYPosOutOfBounds = (newYPos <= 0 || newYPos > CGRectGetHeight(self.frame));
     BOOL isOutsideOfSelf = (newXPosOutOfBounds || newYPosOutOfBounds);
     
+    // Determine whether the user's finger is currently on the right side of the switch
     BOOL onRightSide = (newXPos > (CGRectGetWidth(self.frame)/2.0f));
     
     if (wasOutsideOfSelf && !(isOutsideOfSelf))
     {
         // It used to be outside and now it's inside
         
-        [self.thumb growThumbFromRightSide:self.isOn];
+        // The user's finger just moved inside the switch, so make the thumb fat
+        [self.thumb grow];
         
         self.currentState = onRightSide ? MMMSwitchStateSelectedPressedOn : MMMSwitchStateSelectedPressedOff;
     }
@@ -389,19 +386,24 @@ static void * XXContext = &XXContext;
     {
         // It used to be inside and now it's outside
         
-        [self.thumb shrinkThumbFromRightSide:self.isOn];
+        // The user's finger just moved outside the switch, so make the thumb circular (aka not fat)
+        [self.thumb shrink];
         
         self.currentState = onRightSide ? MMMSwitchStateSelectedUnpressedOn : MMMSwitchStateSelectedUnpressedOff;
     }
     
     if (onRightSide && !(self.isOn))
     {
+        // User's finger just reached position indicating the switch should be on
+        
         [self setOn:YES animated:YES];
         
         self.currentState = isOutsideOfSelf ? MMMSwitchStateSelectedUnpressedOn : MMMSwitchStateSelectedPressedOn;
     }
     else if (!(onRightSide) && self.isOn)
     {
+        // User's finger just reached position indicating the switch should be off
+        
         [self setOn:NO animated:YES];
         
         self.currentState = isOutsideOfSelf ? MMMSwitchStateSelectedUnpressedOff : MMMSwitchStateSelectedPressedOff;
@@ -410,24 +412,24 @@ static void * XXContext = &XXContext;
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.thumb shrinkThumbFromRightSide:self.isOn];
+    [self.thumb shrink];
     
     self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    // Convenience variables for use below
     UITouch *endingTouch = touches.anyObject;
-    
     CGPoint windowEndTouchLocation = [endingTouch locationInView:self.window];
     CGFloat accuracyBuffer = 1.0f;
     
+    // Determine whether or not the user touched up outside of the switch
     CGFloat windowEndTouchX = windowEndTouchLocation.x;
     CGFloat flooredWindowEndTouchX = (windowEndTouchX - accuracyBuffer);
     CGFloat ceiledWindowEndTouchX = (windowEndTouchX + accuracyBuffer);
     CGFloat windowWidth = CGRectGetWidth(self.window.frame);
     BOOL windowEndTouchXOutsideBounds = (flooredWindowEndTouchX < 0.0f || ceiledWindowEndTouchX > windowWidth);
-    
     CGFloat windowEndTouchY = windowEndTouchLocation.y;
     CGFloat flooredWindowEndTouchY = (windowEndTouchY - accuracyBuffer);
     CGFloat ceiledWindowEndTouchY = (windowEndTouchY + accuracyBuffer);
@@ -436,6 +438,8 @@ static void * XXContext = &XXContext;
     
     if (windowEndTouchXOutsideBounds || windowEndTouchYOutsideBounds)
     {
+        // The user touched up outside of the switch
+        
         self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
         
         return;
@@ -464,7 +468,7 @@ static void * XXContext = &XXContext;
         {
             self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
             
-            [self.thumb shrinkThumbFromRightSide:self.isOn];
+            [self.thumb shrink];
         }
         else if (!(touchInsideThumb) && touchInsideSwitch)
         {
