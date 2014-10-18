@@ -11,10 +11,8 @@
 
 @interface DescriptiveStateViewController ()
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *switchWidthConstraint;
 @property (weak, nonatomic) IBOutlet MMMSwitch *theSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stateLabelVerticalSpacingConstraint;
 
 
 @end
@@ -24,11 +22,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    CGFloat viewHeight = CGRectGetHeight(self.view.frame);
-//    CGFloat switchHeight = CGRectGetHeight(self.theSwitch.frame);
-//    CGFloat labelHeight = CGRectGetHeight(self.stateLabel.frame);
-//    self.stateLabelVerticalSpacingConstraint.constant = floorf((viewHeight - switchHeight - labelHeight)/2.0f);
     
     self.theSwitch.stateDidChangeHandler = ^(MMMSwitchState newState)
     {
@@ -66,25 +59,6 @@
         
         self.stateLabel.text = labelText;
     };
-    
-//    [self performSelector:@selector(increaseWidth) withObject:nil afterDelay:3.0f];.
-}
-
-- (void)increaseWidth
-{
-    self.switchWidthConstraint.constant *= 1.2;
-    [self.view layoutIfNeeded];
-}
-
-- (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
-              withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    self.theSwitch.alpha = 0.0f;
-//    [UIView animateWithDuration:0.1f animations:^{ self.theSwitch.alpha = 0.0f; }];
-    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
-    {
-        [UIView animateWithDuration:0.1f animations:^{ self.theSwitch.alpha = 1.0f; }];
-    }];
 }
 
 @end
