@@ -154,13 +154,13 @@
     BOOL wantsRightSide = on;
     if (wantsRightSide)
     {
-        [self.superview addConstraint:self.trailingEdgeConstraint];
         [self.superview removeConstraint:self.leadingEdgeConstraint];
+        [self.superview addConstraint:self.trailingEdgeConstraint];
     }
     else
     {
-        [self.superview addConstraint:self.leadingEdgeConstraint];
         [self.superview removeConstraint:self.trailingEdgeConstraint];
+        [self.superview addConstraint:self.leadingEdgeConstraint];
     }
     
     _on = on;
