@@ -1,72 +1,70 @@
 //
-//  ViewController.m
+//  DescriptiveStateViewController.m
 //  MMMSwitch
 //
 //  Created by Matthew McCroskey on 9/14/14.
 //  Copyright (c) 2014 MMM. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "DescriptiveStateViewController.h"
 #import "MMMSwitch.h"
 
-@interface ViewController ()
+@interface DescriptiveStateViewController ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *switchWidthConstraint;
 @property (weak, nonatomic) IBOutlet MMMSwitch *theSwitch;
-@property (weak, nonatomic) IBOutlet UIView *colorSquare;
+@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stateLabelVerticalSpacingConstraint;
+
 
 @end
 
-@implementation ViewController
+@implementation DescriptiveStateViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+//    CGFloat viewHeight = CGRectGetHeight(self.view.frame);
+//    CGFloat switchHeight = CGRectGetHeight(self.theSwitch.frame);
+//    CGFloat labelHeight = CGRectGetHeight(self.stateLabel.frame);
+//    self.stateLabelVerticalSpacingConstraint.constant = floorf((viewHeight - switchHeight - labelHeight)/2.0f);
+    
     self.theSwitch.stateDidChangeHandler = ^(MMMSwitchState newState)
     {
-        CGFloat colorLevel;
+        NSString *labelText;
         
         switch (newState)
         {
             case MMMSwitchStateOff:
-                colorLevel = (0.0f/5.0f);
-                NSLog(@"The switch is off");
+                labelText = @"The switch is off";
                 break;
                 
             case MMMSwitchStateSelectedUnpressedOff:
-                colorLevel = (1.0f/5.0f);
-                NSLog(@"The switch is selected, unpressed, and off");
+                labelText = @"The switch is selected, unpressed, and off";
                 break;
                 
             case MMMSwitchStateSelectedPressedOff:
-                colorLevel = (2.0f/5.0f);
-                NSLog(@"The switch is selected, pressed, and off");
+                labelText = @"The switch is selected, pressed, and off";
                 break;
                 
             case MMMSwitchStateSelectedUnpressedOn:
-                colorLevel = (3.0f/5.0f);
-                NSLog(@"The switch is selected, unpressed, and on");
+                labelText = @"The switch is selected, unpressed, and on";
                 break;
                 
             case MMMSwitchStateSelectedPressedOn:
-                colorLevel = (4.0f/5.0f);
-                NSLog(@"The switch is selected, pressed, and on");
+                labelText = @"The switch is selected, pressed, and on";
                 break;
                 
             case MMMSwitchStateOn:
-                colorLevel = (5.0f/5.0f);
-                NSLog(@"The switch is on");
+                labelText = @"The switch is on";
                 break;
                 
             default:
                 break;
         }
         
-        [UIView animateWithDuration:0.1f animations:^
-        {
-            self.colorSquare.backgroundColor = [UIColor colorWithRed:colorLevel green:colorLevel blue:colorLevel alpha:1.0f];
-        }];
+        self.stateLabel.text = labelText;
     };
     
 //    [self performSelector:@selector(increaseWidth) withObject:nil afterDelay:3.0f];.
