@@ -196,6 +196,7 @@
 #define kDefaultOnTrackTintColor  [UIColor greenColor];
 #define kDefaultTrackBorderColor  [UIColor darkGrayColor];
 #define kDefaultOnOffAnimationDuration 0.25f
+#define kDefaultWidthChangeAnimationMultiplier 0.01f
 
 static void * KVOContext = &KVOContext;
 
@@ -203,6 +204,7 @@ static void * KVOContext = &KVOContext;
 
 @property (strong, nonatomic) MMMSwitchThumb *thumb;
 @property (strong, nonatomic) UITouch *currentTouch;
+@property (strong, nonatomic) NSLayoutConstraint *widthConstraint;
 
 @end
 
@@ -256,7 +258,52 @@ static void * KVOContext = &KVOContext;
     
     self.currentState = MMMSwitchStateOff;
     
-    self.translatesAutoresizingMaskIntoConstraints = NO;
+    void (^setUpAutoLayout)(void) = ^(void)
+    {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        // Kill all existing size constraints
+        for (NSLayoutConstraint *constraint in self.constraints)
+        {
+            BOOL firstAttributeWidth = (constraint.firstAttribute == NSLayoutAttributeWidth);
+            BOOL secondAttributeWidth = (constraint.secondAttribute == NSLayoutAttributeWidth);
+            BOOL anAttributeIsWidth = (firstAttributeWidth || secondAttributeWidth);
+            
+            BOOL firstAttributeHeight = (constraint.firstAttribute == NSLayoutAttributeHeight);
+            BOOL secondAttributeHeight = (constraint.secondAttribute == NSLayoutAttributeHeight);
+            BOOL anAttributeIsHeight = (firstAttributeHeight || secondAttributeHeight);
+            
+            if (anAttributeIsWidth || anAttributeIsHeight)
+            {
+                [self removeConstraint:constraint];
+            }
+        }
+        
+        // Create width constraint based on current width
+        self.widthConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                            attribute:NSLayoutAttributeWidth
+                                                            relatedBy:NSLayoutRelationEqual
+                                                               toItem:nil
+                                                            attribute:NSLayoutAttributeNotAnAttribute
+                                                           multiplier:1.0f
+                                                             constant:self.frame.size.width];
+        [self addConstraint:self.widthConstraint];
+        
+        // Make sure height is always 3/5ths of width
+        NSLayoutConstraint *heightAspectRatioConstraint = [NSLayoutConstraint constraintWithItem:self
+                                                                                       attribute:NSLayoutAttributeHeight
+                                                                                       relatedBy:NSLayoutRelationEqual
+                                                                                          toItem:self
+                                                                                       attribute:NSLayoutAttributeWidth
+                                                                                      multiplier:(3.0f/5.0f)
+                                                                                        constant:0.0f];
+        [self addConstraint:heightAspectRatioConstraint];
+        
+        [self layoutIfNeeded];
+    };
+    
+    setUpAutoLayout();
+    
     self.offTrackTintColor = kDefaultOffTrackTintColor;
     self.onTrackTintColor = kDefaultOnTrackTintColor;
     self.trackBorderColor = kDefaultTrackBorderColor;
@@ -333,6 +380,59 @@ static void * KVOContext = &KVOContext;
     {
         [self setOn:on];
         [self.thumb setOn:on];
+    }
+}
+
+- (CGFloat)width
+{
+    return CGRectGetWidth(self.frame);
+}
+
+- (void)setWidth:(CGFloat)width
+{
+    [self setWidth:width animated:NO];
+}
+
+- (void)setWidth:(CGFloat)width animated:(BOOL)animated
+{
+    void (^widthChangeBlock)() = ^()
+    {
+        self.widthConstraint.constant = width;
+        [self layoutIfNeeded];
+    };
+    
+    if (animated)
+    {
+        CGFloat currentWidth = CGRectGetWidth(self.frame);
+        CGFloat widthChange = abs(roundf(currentWidth - width));
+        CGFloat heightChange = (widthChange*3.0f/5.0f);
+        CGFloat cornerRadiusChange = floorf(heightChange/2.0f);
+        CGFloat animationDuration = kDefaultWidthChangeAnimationMultiplier * widthChange;
+        
+        // Co-animate the cornerRadius of the switch
+        CABasicAnimation *switchAnimation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(cornerRadius))];
+        switchAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        switchAnimation.fromValue = [NSNumber numberWithFloat:self.layer.cornerRadius];
+        switchAnimation.toValue = [NSNumber numberWithFloat:self.layer.cornerRadius+cornerRadiusChange];
+        switchAnimation.duration = animationDuration;
+        [self.layer addAnimation:switchAnimation forKey:NSStringFromSelector(@selector(cornerRadius))];
+        self.layer.cornerRadius += cornerRadiusChange;
+        
+        // Co-animate the cornerRadius of the thumb
+        CABasicAnimation *trackAnimation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(cornerRadius))];
+        trackAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        trackAnimation.fromValue = [NSNumber numberWithFloat:self.thumb.layer.cornerRadius];
+        trackAnimation.toValue = [NSNumber numberWithFloat:self.thumb.layer.cornerRadius+cornerRadiusChange];
+        trackAnimation.duration = animationDuration;
+        [self.thumb.layer addAnimation:trackAnimation forKey:NSStringFromSelector(@selector(cornerRadius))];
+        self.thumb.layer.cornerRadius += cornerRadiusChange;
+        
+        // Co-animate the width itself
+        [UIView animateWithDuration:animationDuration animations:widthChangeBlock];
+    }
+    else
+    {
+        widthChangeBlock();
     }
 }
 

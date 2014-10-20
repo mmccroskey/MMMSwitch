@@ -79,11 +79,13 @@ typedef void(^MMMSwitchStateDidChangeHandler)(MMMSwitchState newState);
 @property (nonatomic, strong) UIColor *thumbColor;
 
 @property (nonatomic, assign, getter=isOn) BOOL on;
+@property (nonatomic, assign) CGFloat width;
 @property (nonatomic, assign) MMMSwitchState currentState;
 
 // Custom completion block initiated by value change
 @property(nonatomic, copy) MMMSwitchStateDidChangeHandler stateDidChangeHandler;
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated;
+- (void)setWidth:(CGFloat)width animated:(BOOL)animated;
 
 @end
