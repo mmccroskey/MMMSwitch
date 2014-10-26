@@ -432,6 +432,9 @@ static void * KVOContext = &KVOContext;
 {
     self.backgroundColor = on ? self.onTrackTintColor : self.offTrackTintColor;
     
+    [self.thumb setOn:on];
+    [self.thumb layoutIfNeeded];
+    
     _on = on;
 }
 
@@ -443,8 +446,6 @@ static void * KVOContext = &KVOContext;
         [UIView animateWithDuration:kDefaultOnOffAnimationDuration animations:^
         {
             [weakSelf setOn:on animated:NO];
-            [[(MMMSwitch*)weakSelf thumb] setOn:on];
-            [[(MMMSwitch*)weakSelf thumb] layoutIfNeeded];
         } completion:^(BOOL finished) {
             if (finished && !(self.currentTouch))
             {
