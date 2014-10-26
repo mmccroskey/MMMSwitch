@@ -25,6 +25,79 @@
 #import "MMMSwitch.h"
 
 
+#pragma mark - MMMSwitchAnimation Class
+
+
+@interface MMMSwitchAnimation : NSObject
+
+@property (assign, nonatomic) CGFloat width;
+@property (assign, nonatomic) CGFloat animationDuration;
+
+- (instancetype)initWithWidth:(CGFloat)width
+            animationDuration:(CGFloat)animationDuration;
+
+@end
+
+@implementation MMMSwitchAnimation
+
+- (instancetype)initWithWidth:(CGFloat)width
+            animationDuration:(CGFloat)animationDuration
+{
+    if (self = [super init])
+    {
+        _width = width;
+        _animationDuration = animationDuration;
+    }
+    
+    return self;
+}
+
+@end
+
+
+#pragma mark - MMMSwitchAnimationQueue Class
+
+
+@interface MMMSwitchAnimationQueue : NSObject
+
+@property (strong, nonatomic) NSMutableArray *animations;
+
+- (void)enqueueAnimation:(MMMSwitchAnimation*)animation;
+- (MMMSwitchAnimation*)dequeueAnimation;
+
+@end
+
+@implementation MMMSwitchAnimationQueue
+
+#pragma mark - MMMSwitchAnimationQueue: Class Life-Cycle Methods
+
+- (id)init
+{
+    if (self = [super init])
+    {
+        _animations = [[NSMutableArray alloc] init];
+    }
+    
+    return self;
+}
+
+#pragma mark - MMMSwitchAnimationQueue: Public Methods
+
+- (void)enqueueAnimation:(MMMSwitchAnimation*)animation
+{
+    [self.animations addObject:animation];
+}
+
+- (MMMSwitchAnimation*)dequeueAnimation
+{
+    MMMSwitchAnimation *animation = [self.animations firstObject];
+    [self.animations removeObject:animation];
+    return animation;
+}
+
+@end
+
+
 #pragma mark - MMMSwitchThumb Class
 
 
@@ -206,6 +279,9 @@ static void * KVOContext = &KVOContext;
 @property (strong, nonatomic) UITouch *currentTouch;
 @property (strong, nonatomic) NSLayoutConstraint *widthConstraint;
 
+@property (assign, nonatomic) BOOL widthIsAnimating;
+@property (strong, nonatomic) MMMSwitchAnimationQueue *animationQueue;
+
 @end
 
 @implementation MMMSwitch
@@ -315,6 +391,8 @@ static void * KVOContext = &KVOContext;
     [self updateCornerRadius];
     
     [self setOn:NO];
+    
+    self.animationQueue = [[MMMSwitchAnimationQueue alloc] init];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -341,7 +419,7 @@ static void * KVOContext = &KVOContext;
     }
 }
 
-#pragma mark - MMMSwitch: Public Methods
+#pragma mark - MMMSwitch: Public Methods (& Their Helpers)
 
 - (void)setTrackBorderColor:(UIColor *)trackBorderColor
 {
@@ -390,24 +468,37 @@ static void * KVOContext = &KVOContext;
 
 - (void)setWidth:(CGFloat)width
 {
-    [self setWidth:width animated:NO];
+    [self setWidth:width withAnimationDuration:0.0f];
 }
 
-- (void)setWidth:(CGFloat)width animated:(BOOL)animated
+- (void)setWidth:(CGFloat)width withAnimationDuration:(CGFloat)animationDuration
 {
-    void (^widthChangeBlock)() = ^()
+    if (self.widthIsAnimating)
     {
-        self.widthConstraint.constant = width;
-        [self layoutIfNeeded];
-    };
+        NSLog(@"Switch is already animating, so adding this animation to the queue.");
+        NSLog(@"Number of animations in queue BEFORE we add one more: %lu", (unsigned long)[self.animationQueue animations].count);
+        MMMSwitchAnimation *animation = [[MMMSwitchAnimation alloc] initWithWidth:width animationDuration:animationDuration];
+        [self.animationQueue enqueueAnimation:animation];
+        NSLog(@"Number of animations in queue AFTER we add one more: %lu", (unsigned long)[self.animationQueue animations].count);
+    }
+    else
+    {
+        [self animateToWidth:width withDuration:animationDuration];
+    }
+}
+
+- (void)animateToWidth:(CGFloat)width withDuration:(CGFloat)animationDuration
+{
+    CGFloat currentWidth = CGRectGetWidth(self.frame);
+    CGFloat widthChange = roundf(width - currentWidth);
+    CGFloat heightChange = (widthChange*3.0f/5.0f);
+    CGFloat cornerRadiusChange = floorf(heightChange/2.0f);
     
-    if (animated)
+    NSLog(@"%p: Setting up an animation to go from %f to %f", self, currentWidth, width);
+    
+    if (animationDuration > 0)
     {
-        CGFloat currentWidth = CGRectGetWidth(self.frame);
-        CGFloat widthChange = abs(roundf(currentWidth - width));
-        CGFloat heightChange = (widthChange*3.0f/5.0f);
-        CGFloat cornerRadiusChange = floorf(heightChange/2.0f);
-        CGFloat animationDuration = kDefaultWidthChangeAnimationMultiplier * widthChange;
+        self.widthIsAnimating = YES;
         
         // Co-animate the cornerRadius of the switch
         CABasicAnimation *switchAnimation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(cornerRadius))];
@@ -428,11 +519,38 @@ static void * KVOContext = &KVOContext;
         self.thumb.layer.cornerRadius += cornerRadiusChange;
         
         // Co-animate the width itself
-        [UIView animateWithDuration:animationDuration animations:widthChangeBlock];
+        [UIView animateWithDuration:animationDuration animations:^()
+         {
+             self.widthConstraint.constant = width;
+             [self layoutIfNeeded];
+             
+         } completion:^(BOOL finished) {
+             
+             NSLog(@"%p: Animation's done", self);
+             MMMSwitchAnimation *nextAnimation = [self.animationQueue dequeueAnimation];
+             if (nextAnimation)
+             {
+                NSLog(@"We have another animation");
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    [self animateToWidth:nextAnimation.width withDuration:nextAnimation.animationDuration];
+                });
+             }
+             else
+             {
+                 NSLog(@"We don't have another animation");
+                 self.widthIsAnimating = NO;
+             }
+         }];
     }
     else
     {
-        widthChangeBlock();
+        self.widthIsAnimating = NO;
+        
+        self.widthConstraint.constant = width;
+        self.layer.cornerRadius += cornerRadiusChange;
+        self.thumb.layer.cornerRadius += cornerRadiusChange;
+        [self layoutIfNeeded];
     }
 }
 

@@ -86,6 +86,6 @@ typedef void(^MMMSwitchStateDidChangeHandler)(MMMSwitchState newState);
 @property(nonatomic, copy) MMMSwitchStateDidChangeHandler stateDidChangeHandler;
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated;
-- (void)setWidth:(CGFloat)width animated:(BOOL)animated;
+- (void)setWidth:(CGFloat)width withAnimationDuration:(CGFloat)animationDuration;
 
 @end
