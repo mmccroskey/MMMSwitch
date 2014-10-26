@@ -17,8 +17,11 @@
 @property (weak, nonatomic) IBOutlet MMMSwitch *purpleSwitch;
 @property (weak, nonatomic) IBOutlet MMMSwitch *blueSwitch;
 
+@property (assign, nonatomic) CGFloat largeSwitchWidth;
+@property (assign, nonatomic) CGFloat smallSwitchWidth;
+
 @property (strong, nonatomic) NSArray *switches;
-@property (assign, nonatomic) NSInteger nextSwitchToAnimate;
+@property (assign, nonatomic) NSInteger currentSwitch;
 @property (strong, nonatomic) NSTimer *animationTimer;
 
 @end
@@ -35,25 +38,17 @@
     [super viewDidLoad];
     
     self.switches = @[self.orangeSwitch, self.redSwitch, self.purpleSwitch, self.blueSwitch];
-    self.nextSwitchToAnimate = 0;
+    self.currentSwitch = 0;
     
     self.orangeSwitch.onTrackTintColor = self.orangeSwitch.trackBorderColor = [UIColor orangeColor];
     self.redSwitch.onTrackTintColor = self.redSwitch.trackBorderColor = [UIColor redColor];
     self.purpleSwitch.onTrackTintColor = self.purpleSwitch.trackBorderColor = [UIColor purpleColor];
     self.blueSwitch.onTrackTintColor = self.blueSwitch.trackBorderColor = [UIColor blueColor];
     
-    [self performSelector:@selector(grow) withObject:nil afterDelay:1.5f];
-}
-
-- (void)grow
-{
-    [self.redSwitch setWidth:self.redSwitch.width*2.0f animated:YES];
-    [self performSelector:@selector(shrink) withObject:nil afterDelay:3.0f];
-}
-
-- (void)shrink
-{
-    [self.redSwitch setWidth:self.redSwitch.width/2.0f animated:NO];
+    self.largeSwitchWidth = 160.0f;
+    self.smallSwitchWidth = 100.0f;
+    
+    [self.orangeSwitch setOn:YES];
 }
 
 - (IBAction)toggleAnimation:(id)sender
@@ -76,7 +71,7 @@
     {
         self.view.userInteractionEnabled = NO;
         
-        self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.25f target:self selector:@selector(animate) userInfo:nil repeats:YES];
+        self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:1.25f target:self selector:@selector(animate) userInfo:nil repeats:YES];
         [self.animationTimer fire];
     }
 }
@@ -88,12 +83,17 @@
         [self.animationTimer invalidate];
         self.animationTimer = nil;
         
-        [self.orangeSwitch setOn:NO animated:YES];
+        [self.orangeSwitch setOn:YES animated:YES];
         [self.redSwitch setOn:NO animated:YES];
         [self.purpleSwitch setOn:NO animated:YES];
         [self.blueSwitch setOn:NO animated:YES];
+
+        [self.orangeSwitch setWidth:self.largeSwitchWidth withAnimationDuration:0.2f];
+        [self.redSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
+        [self.purpleSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
+        [self.blueSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
         
-        self.nextSwitchToAnimate = 0;
+        self.currentSwitch = 0;
         
         self.view.userInteractionEnabled = YES;
     }
@@ -101,10 +101,22 @@
 
 - (void)animate
 {
-    MMMSwitch *switchToAnimate = self.switches[self.nextSwitchToAnimate];
-    [switchToAnimate setOn:!(switchToAnimate.isOn) animated:YES];
+    // Turn off the current switch and make it smaller
+    MMMSwitch *currentSwitch = self.switches[[self currentSwitch]];
+    [currentSwitch setOn:NO animated:YES];
+    [currentSwitch setWidth:self.smallSwitchWidth withAnimationDuration:1.0f];
+     
+    // Turn on the next switch and make it bigger
+    MMMSwitch *nextSwitch = self.switches[[self nextSwitch]];
+    [nextSwitch setOn:YES animated:YES];
+    [nextSwitch setWidth:self.largeSwitchWidth withAnimationDuration:1.0f];
     
-    self.nextSwitchToAnimate = (self.nextSwitchToAnimate == 3) ? 0 : (self.nextSwitchToAnimate + 1);
+    self.currentSwitch = [self nextSwitch];
+}
+
+- (NSInteger)nextSwitch
+{
+    return (self.currentSwitch == 3) ? 0 : (self.currentSwitch+1);
 }
 
 @end
