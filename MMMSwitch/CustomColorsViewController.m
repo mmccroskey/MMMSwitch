@@ -12,9 +12,10 @@
 @interface CustomColorsViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *startStopButton;
-@property (weak, nonatomic) IBOutlet MMMSwitch *orangeSwitch;
 @property (weak, nonatomic) IBOutlet MMMSwitch *redSwitch;
-@property (weak, nonatomic) IBOutlet MMMSwitch *purpleSwitch;
+@property (weak, nonatomic) IBOutlet MMMSwitch *orangeSwitch;
+@property (weak, nonatomic) IBOutlet MMMSwitch *yellowSwitch;
+@property (weak, nonatomic) IBOutlet MMMSwitch *greenSwitch;
 @property (weak, nonatomic) IBOutlet MMMSwitch *blueSwitch;
 
 @property (assign, nonatomic) CGFloat largeSwitchWidth;
@@ -37,18 +38,19 @@
 {
     [super viewDidLoad];
     
-    self.switches = @[self.orangeSwitch, self.redSwitch, self.purpleSwitch, self.blueSwitch];
+    self.switches = @[self.redSwitch, self.orangeSwitch, self.yellowSwitch, self.greenSwitch, self.blueSwitch];
     self.currentSwitch = 0;
     
-    self.orangeSwitch.onTrackTintColor = self.orangeSwitch.trackBorderColor = [UIColor orangeColor];
     self.redSwitch.onTrackTintColor = self.redSwitch.trackBorderColor = [UIColor redColor];
-    self.purpleSwitch.onTrackTintColor = self.purpleSwitch.trackBorderColor = [UIColor purpleColor];
+    self.orangeSwitch.onTrackTintColor = self.orangeSwitch.trackBorderColor = [UIColor orangeColor];
+    self.yellowSwitch.onTrackTintColor = self.yellowSwitch.trackBorderColor = [UIColor yellowColor];
+    self.greenSwitch.onTrackTintColor = self.greenSwitch.trackBorderColor = [UIColor greenColor];
     self.blueSwitch.onTrackTintColor = self.blueSwitch.trackBorderColor = [UIColor blueColor];
     
     self.largeSwitchWidth = 160.0f;
     self.smallSwitchWidth = 100.0f;
     
-    [self.orangeSwitch setOn:YES];
+    [self.redSwitch setOn:YES];
 }
 
 - (IBAction)toggleAnimation:(id)sender
@@ -71,7 +73,7 @@
     {
         self.view.userInteractionEnabled = NO;
         
-        self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:1.25f target:self selector:@selector(animate) userInfo:nil repeats:YES];
+        self.animationTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(animate) userInfo:nil repeats:YES];
         [self.animationTimer fire];
     }
 }
@@ -83,14 +85,16 @@
         [self.animationTimer invalidate];
         self.animationTimer = nil;
         
-        [self.orangeSwitch setOn:YES animated:YES];
-        [self.redSwitch setOn:NO animated:YES];
-        [self.purpleSwitch setOn:NO animated:YES];
+        [self.redSwitch setOn:YES animated:YES];
+        [self.orangeSwitch setOn:NO animated:YES];
+        [self.yellowSwitch setOn:NO animated:YES];
+        [self.greenSwitch setOn:NO animated:YES];
         [self.blueSwitch setOn:NO animated:YES];
 
-        [self.orangeSwitch setWidth:self.largeSwitchWidth withAnimationDuration:0.2f];
-        [self.redSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
-        [self.purpleSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
+        [self.redSwitch setWidth:self.largeSwitchWidth withAnimationDuration:0.2f];
+        [self.orangeSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
+        [self.yellowSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
+        [self.greenSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
         [self.blueSwitch setWidth:self.smallSwitchWidth withAnimationDuration:0.2f];
         
         self.currentSwitch = 0;
@@ -116,7 +120,7 @@
 
 - (NSInteger)nextSwitch
 {
-    return (self.currentSwitch == 3) ? 0 : (self.currentSwitch+1);
+    return (self.currentSwitch == 4) ? 0 : (self.currentSwitch+1);
 }
 
 @end

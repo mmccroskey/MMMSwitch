@@ -118,68 +118,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UnZ-dE-fbD" userLabel="Switch 1" customClass="MMMSwitch">
-                                <rect key="frame" x="220" y="92" width="160" height="96"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UnZ-dE-fbD" userLabel="Red Switch" customClass="MMMSwitch">
+                                <rect key="frame" x="220" y="94" width="160" height="96"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="160" id="0we-fL-cRA">
-                                        <variation key="heightClass=compact-widthClass=regular" constant="300"/>
-                                    </constraint>
-                                    <constraint firstAttribute="width" secondItem="UnZ-dE-fbD" secondAttribute="height" multiplier="5:3" placeholder="YES" id="1Bs-Tn-Oat"/>
+                                    <constraint firstAttribute="width" secondItem="UnZ-dE-fbD" secondAttribute="height" multiplier="5:3" id="76L-2l-OGV"/>
+                                    <constraint firstAttribute="width" constant="160" id="Ir2-Sc-mTB"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Bz-YQ-emY" userLabel="Switch 2" customClass="MMMSwitch" colorLabel="IBBuiltInLabel-Blue">
-                                <rect key="frame" x="250" y="208" width="100" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xo6-G1-Wd3" userLabel="Yellow Switch" customClass="MMMSwitch">
+                                <rect key="frame" x="250" y="290" width="100" height="60"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="wnf-1o-Y6r">
-                                        <variation key="heightClass=compact-widthClass=regular" constant="300"/>
-                                    </constraint>
+                                    <constraint firstAttribute="width" secondItem="Xo6-G1-Wd3" secondAttribute="height" multiplier="5:3" id="0GP-ip-0jI"/>
+                                    <constraint firstAttribute="width" constant="100" id="Zho-UG-YtT"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxx-8e-Pd8" userLabel="Alignment View">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="gPV-yn-4bD"/>
-                                    <constraint firstAttribute="height" id="uNm-sr-fDe"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xo6-G1-Wd3" userLabel="Switch 3" customClass="MMMSwitch">
-                                <rect key="frame" x="250" y="288" width="100" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7mv-S2-Rph" userLabel="Green Switch" customClass="MMMSwitch">
+                                <rect key="frame" x="250" y="370" width="100" height="60"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="vGn-fS-ZBD">
-                                        <variation key="heightClass=compact-widthClass=regular" constant="300"/>
-                                    </constraint>
+                                    <constraint firstAttribute="width" constant="100" id="2ay-eO-sCV"/>
+                                    <constraint firstAttribute="width" secondItem="7mv-S2-Rph" secondAttribute="height" multiplier="5:3" id="CLQ-i1-IVv"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7mv-S2-Rph" userLabel="Switch 4" customClass="MMMSwitch">
-                                <rect key="frame" x="250" y="368" width="100" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DRX-gK-CaE" userLabel="Blue Switch" customClass="MMMSwitch">
+                                <rect key="frame" x="250" y="450" width="100" height="60"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="4l9-Tv-w5V">
-                                        <variation key="heightClass=compact-widthClass=regular" constant="300"/>
-                                    </constraint>
+                                    <constraint firstAttribute="width" secondItem="DRX-gK-CaE" secondAttribute="height" multiplier="5:3" id="7wG-gW-SWO"/>
+                                    <constraint firstAttribute="width" constant="100" id="SHA-Ui-Zbv"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Bz-YQ-emY" userLabel="Orange Switch" customClass="MMMSwitch" colorLabel="IBBuiltInLabel-Blue">
+                                <rect key="frame" x="250" y="210" width="100" height="60"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8Bz-YQ-emY" secondAttribute="height" multiplier="5:3" id="K51-y4-gAI"/>
+                                    <constraint firstAttribute="width" constant="100" id="eEc-x2-mvK"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="dxx-8e-Pd8" secondAttribute="centerX" id="BpL-Vh-JFC"/>
-                            <constraint firstItem="8Bz-YQ-emY" firstAttribute="top" secondItem="UnZ-dE-fbD" secondAttribute="bottom" constant="20" id="Etv-Dd-neS"/>
+                            <constraint firstItem="8Bz-YQ-emY" firstAttribute="centerX" secondItem="UnZ-dE-fbD" secondAttribute="centerX" id="1zK-QI-zT4"/>
+                            <constraint firstItem="8Bz-YQ-emY" firstAttribute="top" secondItem="UnZ-dE-fbD" secondAttribute="bottom" constant="20" id="3ap-lK-ZLF"/>
+                            <constraint firstItem="Xo6-G1-Wd3" firstAttribute="centerX" secondItem="7mv-S2-Rph" secondAttribute="centerX" id="95M-VK-YSU"/>
+                            <constraint firstAttribute="centerX" secondItem="Xo6-G1-Wd3" secondAttribute="centerX" id="Buc-jW-wFJ"/>
                             <constraint firstItem="8Bz-YQ-emY" firstAttribute="centerX" secondItem="UnZ-dE-fbD" secondAttribute="centerX" id="QUd-W2-3sF"/>
-                            <constraint firstItem="8Bz-YQ-emY" firstAttribute="width" secondItem="8Bz-YQ-emY" secondAttribute="height" multiplier="5:3" placeholder="YES" id="Rz7-lk-Put"/>
-                            <constraint firstAttribute="centerX" secondItem="Xo6-G1-Wd3" secondAttribute="centerX" id="Tck-vW-HaW"/>
-                            <constraint firstItem="7mv-S2-Rph" firstAttribute="top" secondItem="Xo6-G1-Wd3" secondAttribute="bottom" constant="20" id="dNp-eR-tEH"/>
-                            <constraint firstItem="Xo6-G1-Wd3" firstAttribute="centerX" secondItem="7mv-S2-Rph" secondAttribute="centerX" id="gGL-k8-lqA"/>
-                            <constraint firstItem="dxx-8e-Pd8" firstAttribute="top" secondItem="8Bz-YQ-emY" secondAttribute="bottom" constant="10" id="mSr-wS-T8X"/>
-                            <constraint firstItem="Xo6-G1-Wd3" firstAttribute="width" secondItem="Xo6-G1-Wd3" secondAttribute="height" multiplier="5:3" placeholder="YES" id="vQo-8k-gdR"/>
-                            <constraint firstAttribute="centerY" secondItem="dxx-8e-Pd8" secondAttribute="centerY" constant="22" id="wDt-PU-i5I"/>
-                            <constraint firstItem="7mv-S2-Rph" firstAttribute="width" secondItem="7mv-S2-Rph" secondAttribute="height" multiplier="5:3" placeholder="YES" id="wOq-KG-1mp"/>
+                            <constraint firstItem="8Bz-YQ-emY" firstAttribute="centerX" secondItem="Xo6-G1-Wd3" secondAttribute="centerX" id="WUa-sx-oS1"/>
+                            <constraint firstItem="7mv-S2-Rph" firstAttribute="top" secondItem="Xo6-G1-Wd3" secondAttribute="bottom" constant="20" id="YuZ-yw-wEr"/>
+                            <constraint firstAttribute="centerY" secondItem="Xo6-G1-Wd3" secondAttribute="centerY" constant="-20" id="fCV-m7-OEb"/>
+                            <constraint firstItem="Xo6-G1-Wd3" firstAttribute="top" secondItem="8Bz-YQ-emY" secondAttribute="bottom" constant="20" id="fVQ-Fa-Bbb"/>
+                            <constraint firstItem="DRX-gK-CaE" firstAttribute="top" secondItem="7mv-S2-Rph" secondAttribute="bottom" constant="20" id="sEV-ab-h0n"/>
+                            <constraint firstItem="DRX-gK-CaE" firstAttribute="centerX" secondItem="7mv-S2-Rph" secondAttribute="centerX" id="w1u-Su-2dO"/>
                             <constraint firstAttribute="centerX" secondItem="UnZ-dE-fbD" secondAttribute="centerX" id="x6i-ZK-Atl"/>
-                            <constraint firstItem="Xo6-G1-Wd3" firstAttribute="top" secondItem="dxx-8e-Pd8" secondAttribute="bottom" constant="10" id="xJU-pP-jlp"/>
-                            <constraint firstAttribute="centerX" secondItem="8Bz-YQ-emY" secondAttribute="centerX" id="zJj-BW-PR2"/>
+                            <constraint firstItem="UnZ-dE-fbD" firstAttribute="centerX" secondItem="8Bz-YQ-emY" secondAttribute="centerX" id="x84-go-yUG"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="x6i-ZK-Atl"/>
+                                <exclude reference="x84-go-yUG"/>
+                                <exclude reference="QUd-W2-3sF"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Animation" id="G4F-DW-NPh">
                         <barButtonItem key="rightBarButtonItem" title="Start" id="eiV-6D-x6t">
@@ -189,11 +191,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="blueSwitch" destination="7mv-S2-Rph" id="ohp-kO-KAu"/>
-                        <outlet property="orangeSwitch" destination="UnZ-dE-fbD" id="mkw-go-Okv"/>
-                        <outlet property="purpleSwitch" destination="Xo6-G1-Wd3" id="VB0-V3-mnP"/>
-                        <outlet property="redSwitch" destination="8Bz-YQ-emY" id="rzN-Yt-3cr"/>
+                        <outlet property="blueSwitch" destination="DRX-gK-CaE" id="OMW-1F-dfc"/>
+                        <outlet property="greenSwitch" destination="7mv-S2-Rph" id="YNb-U6-aPc"/>
+                        <outlet property="orangeSwitch" destination="8Bz-YQ-emY" id="E56-Em-xED"/>
+                        <outlet property="redSwitch" destination="UnZ-dE-fbD" id="xno-c2-H0P"/>
                         <outlet property="startStopButton" destination="eiV-6D-x6t" id="5ZD-3h-qD9"/>
+                        <outlet property="yellowSwitch" destination="Xo6-G1-Wd3" id="ab5-lH-wEc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="94T-5G-rwj" userLabel="First Responder" sceneMemberID="firstResponder"/>
