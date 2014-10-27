@@ -18,17 +18,18 @@
                     <connections>
                         <segue destination="FmZ-hW-4B1" kind="relationship" relationship="viewControllers" id="EqE-Z7-ntz"/>
                         <segue destination="J69-WF-060" kind="relationship" relationship="viewControllers" id="6Ai-Ec-P8r"/>
+                        <segue destination="d14-M2-MS7" kind="relationship" relationship="viewControllers" id="j7n-E0-l0w"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="faK-kL-5FD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2131" y="-226"/>
         </scene>
-        <!--Item-->
+        <!--Description-->
         <scene sceneID="UBj-WW-h5j">
             <objects>
                 <navigationController id="FmZ-hW-4B1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="w9R-Jw-FmT"/>
+                    <tabBarItem key="tabBarItem" title="Description" id="w9R-Jw-FmT"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5kH-WW-hcN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -89,11 +90,47 @@
             </objects>
             <point key="canvasLocation" x="-687" y="-226"/>
         </scene>
-        <!--Item-->
+        <!--Customization-->
+        <scene sceneID="bi5-Ny-Yxk">
+            <objects>
+                <navigationController id="d14-M2-MS7" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Customization" id="Y2U-O1-g7F"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tTW-u6-Z3C">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="wPi-o1-abD" kind="relationship" relationship="rootViewController" id="oIS-NY-g15"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ieg-h5-lCG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1445" y="550"/>
+        </scene>
+        <!--Customization-->
+        <scene sceneID="kmQ-cb-Sm6">
+            <objects>
+                <viewController id="wPi-o1-abD" customClass="CustomizationViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Is3-FQ-yq3"/>
+                        <viewControllerLayoutGuide type="bottom" id="fti-RJ-c2Y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EVG-h2-HaM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Customization" id="p15-fT-ZXi"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ufs-KX-0hu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-687" y="550"/>
+        </scene>
+        <!--Animation-->
         <scene sceneID="f0f-VZ-Qph">
             <objects>
                 <navigationController id="J69-WF-060" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Q4d-P1-ylk"/>
+                    <tabBarItem key="tabBarItem" title="Animation" id="Q4d-P1-ylk"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rXC-9P-Lxr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
