@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D5206F919FDC7EA00EA6B18 /* CustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */; };
 		8D7133B019F332A000CB1A43 /* AnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7133AF19F332A000CB1A43 /* AnimationViewController.m */; };
 		8DFC1FA419C6312D00EDA411 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA319C6312D00EDA411 /* main.m */; };
 		8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA619C6312D00EDA411 /* AppDelegate.m */; };
@@ -29,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D5206F719FDC7EA00EA6B18 /* CustomizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizationViewController.h; sourceTree = "<group>"; };
+		8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizationViewController.m; sourceTree = "<group>"; };
 		8D7133AE19F332A000CB1A43 /* AnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationViewController.h; sourceTree = "<group>"; };
 		8D7133AF19F332A000CB1A43 /* AnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationViewController.m; sourceTree = "<group>"; };
 		8DFC1F9E19C6312D00EDA411 /* MMMSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMMSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +94,8 @@
 				8DFC1FA619C6312D00EDA411 /* AppDelegate.m */,
 				8D7133AE19F332A000CB1A43 /* AnimationViewController.h */,
 				8D7133AF19F332A000CB1A43 /* AnimationViewController.m */,
+				8D5206F719FDC7EA00EA6B18 /* CustomizationViewController.h */,
+				8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */,
 				8DFC1FA819C6312D00EDA411 /* DescriptionViewController.h */,
 				8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */,
 				8DFC1FAB19C6312D00EDA411 /* Main.storyboard */,
@@ -231,6 +236,7 @@
 			files = (
 				8D7133B019F332A000CB1A43 /* AnimationViewController.m in Sources */,
 				8DFC1FAA19C6312D00EDA411 /* DescriptionViewController.m in Sources */,
+				8D5206F919FDC7EA00EA6B18 /* CustomizationViewController.m in Sources */,
 				8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */,
 				8DFC1FA419C6312D00EDA411 /* main.m in Sources */,
 				8DFC1FC919C6316500EDA411 /* MMMSwitch.m in Sources */,
