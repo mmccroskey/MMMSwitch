@@ -1,15 +1,15 @@
 //
-//  CustomColorsViewController.m
+//  AnimationViewController.m
 //  MMMSwitch
 //
 //  Created by Matthew McCroskey on 10/18/14.
 //  Copyright (c) 2014 MMM. All rights reserved.
 //
 
-#import "CustomColorsViewController.h"
+#import "AnimationViewController.h"
 #import "MMMSwitch.h"
 
-@interface CustomColorsViewController ()
+@interface AnimationViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *startStopButton;
 @property (weak, nonatomic) IBOutlet MMMSwitch *redSwitch;
@@ -27,7 +27,7 @@
 
 @end
 
-@implementation CustomColorsViewController
+@implementation AnimationViewController
 
 - (void)dealloc
 {

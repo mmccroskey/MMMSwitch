@@ -1,15 +1,15 @@
 //
-//  DescriptiveStateViewController.m
+//  DescriptionViewController.m
 //  MMMSwitch
 //
 //  Created by Matthew McCroskey on 9/14/14.
 //  Copyright (c) 2014 MMM. All rights reserved.
 //
 
-#import "DescriptiveStateViewController.h"
+#import "DescriptionViewController.h"
 #import "MMMSwitch.h"
 
-@interface DescriptiveStateViewController ()
+@interface DescriptionViewController ()
 
 @property (weak, nonatomic) IBOutlet MMMSwitch *theSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation DescriptiveStateViewController
+@implementation DescriptionViewController
 
 - (void)viewDidLoad
 {

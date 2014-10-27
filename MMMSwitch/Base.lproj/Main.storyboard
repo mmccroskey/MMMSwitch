@@ -44,7 +44,7 @@
         <!--State Description-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="DescriptiveStateViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="DescriptionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -109,7 +109,7 @@
         <!--Animation-->
         <scene sceneID="M3u-Wq-32q">
             <objects>
-                <viewController id="KeF-6W-ewb" customClass="CustomColorsViewController" sceneMemberID="viewController">
+                <viewController id="KeF-6W-ewb" customClass="AnimationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mdj-2B-7kW"/>
                         <viewControllerLayoutGuide type="bottom" id="4NV-w5-I7K"/>

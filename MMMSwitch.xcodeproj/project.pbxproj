@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D7133B019F332A000CB1A43 /* CustomColorsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7133AF19F332A000CB1A43 /* CustomColorsViewController.m */; };
+		8D7133B019F332A000CB1A43 /* AnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7133AF19F332A000CB1A43 /* AnimationViewController.m */; };
 		8DFC1FA419C6312D00EDA411 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA319C6312D00EDA411 /* main.m */; };
 		8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA619C6312D00EDA411 /* AppDelegate.m */; };
-		8DFC1FAA19C6312D00EDA411 /* DescriptiveStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA919C6312D00EDA411 /* DescriptiveStateViewController.m */; };
+		8DFC1FAA19C6312D00EDA411 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */; };
 		8DFC1FAD19C6312D00EDA411 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FAB19C6312D00EDA411 /* Main.storyboard */; };
 		8DFC1FAF19C6312D00EDA411 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FAE19C6312D00EDA411 /* Images.xcassets */; };
 		8DFC1FB219C6312D00EDA411 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FB019C6312D00EDA411 /* LaunchScreen.xib */; };
@@ -29,15 +29,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8D7133AE19F332A000CB1A43 /* CustomColorsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomColorsViewController.h; sourceTree = "<group>"; };
-		8D7133AF19F332A000CB1A43 /* CustomColorsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomColorsViewController.m; sourceTree = "<group>"; };
+		8D7133AE19F332A000CB1A43 /* AnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationViewController.h; sourceTree = "<group>"; };
+		8D7133AF19F332A000CB1A43 /* AnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationViewController.m; sourceTree = "<group>"; };
 		8DFC1F9E19C6312D00EDA411 /* MMMSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMMSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFC1FA219C6312D00EDA411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DFC1FA319C6312D00EDA411 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8DFC1FA519C6312D00EDA411 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8DFC1FA619C6312D00EDA411 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8DFC1FA819C6312D00EDA411 /* DescriptiveStateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DescriptiveStateViewController.h; sourceTree = "<group>"; };
-		8DFC1FA919C6312D00EDA411 /* DescriptiveStateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DescriptiveStateViewController.m; sourceTree = "<group>"; };
+		8DFC1FA819C6312D00EDA411 /* DescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
+		8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
 		8DFC1FAC19C6312D00EDA411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8DFC1FAE19C6312D00EDA411 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8DFC1FB119C6312D00EDA411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -89,10 +89,10 @@
 			children = (
 				8DFC1FA519C6312D00EDA411 /* AppDelegate.h */,
 				8DFC1FA619C6312D00EDA411 /* AppDelegate.m */,
-				8D7133AE19F332A000CB1A43 /* CustomColorsViewController.h */,
-				8D7133AF19F332A000CB1A43 /* CustomColorsViewController.m */,
-				8DFC1FA819C6312D00EDA411 /* DescriptiveStateViewController.h */,
-				8DFC1FA919C6312D00EDA411 /* DescriptiveStateViewController.m */,
+				8D7133AE19F332A000CB1A43 /* AnimationViewController.h */,
+				8D7133AF19F332A000CB1A43 /* AnimationViewController.m */,
+				8DFC1FA819C6312D00EDA411 /* DescriptionViewController.h */,
+				8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */,
 				8DFC1FAB19C6312D00EDA411 /* Main.storyboard */,
 				8DFC1FAE19C6312D00EDA411 /* Images.xcassets */,
 				8DFC1FB019C6312D00EDA411 /* LaunchScreen.xib */,
@@ -229,8 +229,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D7133B019F332A000CB1A43 /* CustomColorsViewController.m in Sources */,
-				8DFC1FAA19C6312D00EDA411 /* DescriptiveStateViewController.m in Sources */,
+				8D7133B019F332A000CB1A43 /* AnimationViewController.m in Sources */,
+				8DFC1FAA19C6312D00EDA411 /* DescriptionViewController.m in Sources */,
 				8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */,
 				8DFC1FA419C6312D00EDA411 /* main.m in Sources */,
 				8DFC1FC919C6316500EDA411 /* MMMSwitch.m in Sources */,

@@ -1,5 +1,5 @@
 //
-//  DescriptiveStateViewController.h
+//  DescriptionViewController.h
 //  MMMSwitch
 //
 //  Created by Matthew McCroskey on 9/14/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DescriptiveStateViewController : UIViewController
+@interface DescriptionViewController : UIViewController
 
 
 @end
