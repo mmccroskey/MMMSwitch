@@ -476,11 +476,8 @@ static void * KVOContext = &KVOContext;
 {
     if (self.widthIsAnimating)
     {
-        NSLog(@"Switch is already animating, so adding this animation to the queue.");
-        NSLog(@"Number of animations in queue BEFORE we add one more: %lu", (unsigned long)[self.animationQueue animations].count);
         MMMSwitchAnimation *animation = [[MMMSwitchAnimation alloc] initWithWidth:width animationDuration:animationDuration];
         [self.animationQueue enqueueAnimation:animation];
-        NSLog(@"Number of animations in queue AFTER we add one more: %lu", (unsigned long)[self.animationQueue animations].count);
     }
     else
     {
@@ -494,8 +491,6 @@ static void * KVOContext = &KVOContext;
     CGFloat widthChange = roundf(width - currentWidth);
     CGFloat heightChange = (widthChange*3.0f/5.0f);
     CGFloat cornerRadiusChange = floorf(heightChange/2.0f);
-    
-    NSLog(@"%p: Setting up an animation to go from %f to %f", self, currentWidth, width);
     
     if (animationDuration > 0)
     {
@@ -527,11 +522,9 @@ static void * KVOContext = &KVOContext;
              
          } completion:^(BOOL finished) {
              
-             NSLog(@"%p: Animation's done", self);
              MMMSwitchAnimation *nextAnimation = [self.animationQueue dequeueAnimation];
              if (nextAnimation)
              {
-                NSLog(@"We have another animation");
                 dispatch_async(dispatch_get_main_queue(), ^
                 {
                     [self animateToWidth:nextAnimation.width withDuration:nextAnimation.animationDuration];
@@ -539,7 +532,6 @@ static void * KVOContext = &KVOContext;
              }
              else
              {
-                 NSLog(@"We don't have another animation");
                  self.widthIsAnimating = NO;
              }
          }];
