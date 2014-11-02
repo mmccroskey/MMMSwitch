@@ -428,14 +428,31 @@ static void * KVOContext = &KVOContext;
     self.thumb.layer.borderColor = self.layer.borderColor;
 }
 
+- (void)refreshBackgroundColor
+{
+    self.backgroundColor = self.isOn ? self.onTrackTintColor : self.offTrackTintColor;
+}
+
+- (void)setOnTrackTintColor:(UIColor *)onTrackTintColor
+{
+    _onTrackTintColor = onTrackTintColor;
+    [self refreshBackgroundColor];
+}
+
+- (void)setOffTrackTintColor:(UIColor *)offTrackTintColor
+{
+    _offTrackTintColor = offTrackTintColor;
+    [self refreshBackgroundColor];
+}
+
 - (void)setOn:(BOOL)on
 {
-    self.backgroundColor = on ? self.onTrackTintColor : self.offTrackTintColor;
-    
     [self.thumb setOn:on];
     [self.thumb layoutIfNeeded];
     
     _on = on;
+    
+    [self refreshBackgroundColor];
 }
 
 - (void)setOn:(BOOL)on animated:(BOOL)animated
