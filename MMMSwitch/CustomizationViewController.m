@@ -7,31 +7,58 @@
 //
 
 #import "CustomizationViewController.h"
+#import "MMMSwitch.h"
 
 @interface CustomizationViewController ()
+
+@property (weak, nonatomic) IBOutlet MMMSwitch *customizableSwitch;
+
+@property (weak, nonatomic) IBOutlet UIView *leftColorView;
+@property (weak, nonatomic) IBOutlet UIView *rightColorView;
+
+@property (weak, nonatomic) IBOutlet UISlider *colorSlider;
+@property (weak, nonatomic) IBOutlet UISlider *sizeSlider;
 
 @end
 
 @implementation CustomizationViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    // Make the color views circular
+    self.leftColorView.layer.cornerRadius = floorf(CGRectGetWidth(self.leftColorView.frame)/2.0f);
+    self.rightColorView.layer.cornerRadius = floorf(CGRectGetWidth(self.rightColorView.frame)/2.0f);
+    
+    // Initialize the state of the switch with the initial sliders' states
+    [self updateSwitchColorForSliderPosition:self.colorSlider.value];
+    [self updateSwitchSizeForSliderPosition:self.sizeSlider.value];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)colorSliderChanged:(UISlider *)sender
+{
+    [self updateSwitchColorForSliderPosition:sender.value];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)sizeSliderChanged:(UISlider *)sender
+{
+    [self updateSwitchSizeForSliderPosition:sender.value];
 }
-*/
+
+- (void)updateSwitchColorForSliderPosition:(CGFloat)position
+{
+    self.customizableSwitch.onTrackTintColor =
+    self.customizableSwitch.trackBorderColor =
+    [UIColor colorWithHue:position
+               saturation:1.0f
+               brightness:1.0f
+                    alpha:1.0f];
+}
+
+- (void)updateSwitchSizeForSliderPosition:(CGFloat)position
+{
+    self.customizableSwitch.width = ((200*position)+100);
+}
 
 @end
