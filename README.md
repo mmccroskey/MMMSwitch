@@ -1,6 +1,12 @@
 # MMMSwitch
 -----------
 
+[![Version](https://img.shields.io/cocoapods/v/MMMSwitch.svg?style=flat)](http://cocoadocs.org/docsets/MMMSwitch)
+[![License](https://img.shields.io/cocoapods/l/MMMSwitch.svg?style=flat)](http://cocoadocs.org/docsets/MMMSwitch)
+[![Platform](https://img.shields.io/cocoapods/p/MMMSwitch.svg?style=flat)](http://cocoadocs.org/docsets/MMMSwitch)
+
+<br />
+
 <p align="center">
 <img src="http://cl.ly/image/091s0e0c0o37/Screen%20Recording%202014-11-02%20at%2005.13%20PM.gif" width="200px" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <img src="http://cl.ly/image/042L0F381J3n/Screen%20Recording%202014-11-02%20at%2005.15%20PM.gif" width="200px" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
