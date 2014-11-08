@@ -7,7 +7,6 @@
 //
 
 #import "MMMSwitchTrack.h"
-#import <QuartzCore/QuartzCore.h>
 
 #define notSupportedMessage "This initializer is not supported by this class; please use 'initWithOnTintColor:offTintColor:superview' instead."
 
