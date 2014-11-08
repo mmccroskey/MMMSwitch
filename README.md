@@ -1,7 +1,7 @@
 # MMMSwitch
 -----------
 
-![Rich State Callback](http://f.cl.ly/items/0u3u0m1C1i0Q1Q2a0X10/switch%20gif%20001.gif) ![Animations](http://cl.ly/image/042L0F381J3n/Screen%20Recording%202014-11-02%20at%2005.15%20PM.gif =250x) ![Customization](http://f.cl.ly/items/2A1s0o2M193M3s310D3C/Screen%20Recording%202014-11-02%20at%2005.16%20PM.gif =250x)
+![Rich State Callback](http://f.cl.ly/items/1R2h0V002x3X453l2O3i/switch%20gif%20001.gif)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Animations](http://cl.ly/image/3w2K3B2q3d0J/switch%20gif%20002.gif)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![Customization](http://cl.ly/image/2A1k3M472e0n/switch%20gif%20003.gif)
 
 **A `UISwitch` Alternative that Supports Auto Layout, Resizing, and Visual Customization with Rich State Callback.**
 
