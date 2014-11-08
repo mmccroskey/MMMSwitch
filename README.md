@@ -1,7 +1,11 @@
 # MMMSwitch
 -----------
 
-![Rich State Callback](http://f.cl.ly/items/0u3u0m1C1i0Q1Q2a0X10/switch%20gif%20001.gif) ![Animations](http://cl.ly/image/042L0F381J3n/Screen%20Recording%202014-11-02%20at%2005.15%20PM.gif =250x) ![Customization](http://f.cl.ly/items/2A1s0o2M193M3s310D3C/Screen%20Recording%202014-11-02%20at%2005.16%20PM.gif =250x)
+<p align="center">
+<img src="http://cl.ly/image/091s0e0c0o37/Screen%20Recording%202014-11-02%20at%2005.13%20PM.gif" width="200px" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="http://cl.ly/image/042L0F381J3n/Screen%20Recording%202014-11-02%20at%2005.15%20PM.gif" width="200px" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="http://f.cl.ly/items/2A1s0o2M193M3s310D3C/Screen%20Recording%202014-11-02%20at%2005.16%20PM.gif" width="200px" />
+</p>
 
 **A `UISwitch` Alternative that Supports Auto Layout, Resizing, and Visual Customization with Rich State Callback.**
 
@@ -132,5 +136,3 @@ Matthew McCroskey
 ## License
 
 `MMMSwitch` is available under the MIT license. See the LICENSE file for more info.
-
-Here's one more thing....
