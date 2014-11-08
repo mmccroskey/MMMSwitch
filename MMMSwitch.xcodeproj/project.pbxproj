@@ -7,48 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D5206F919FDC7EA00EA6B18 /* CustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */; };
-		8D7133B019F332A000CB1A43 /* AnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7133AF19F332A000CB1A43 /* AnimationViewController.m */; };
-		8DFC1FA419C6312D00EDA411 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA319C6312D00EDA411 /* main.m */; };
-		8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA619C6312D00EDA411 /* AppDelegate.m */; };
-		8DFC1FAA19C6312D00EDA411 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */; };
-		8DFC1FAD19C6312D00EDA411 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FAB19C6312D00EDA411 /* Main.storyboard */; };
-		8DFC1FAF19C6312D00EDA411 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FAE19C6312D00EDA411 /* Images.xcassets */; };
-		8DFC1FB219C6312D00EDA411 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FB019C6312D00EDA411 /* LaunchScreen.xib */; };
-		8DFC1FBE19C6312D00EDA411 /* MMMSwitchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FBD19C6312D00EDA411 /* MMMSwitchTests.m */; };
-		8DFC1FC919C6316500EDA411 /* MMMSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FC819C6316500EDA411 /* MMMSwitch.m */; };
+		8D47959B1A0EBCB7008EE494 /* AnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D47958D1A0EBCB7008EE494 /* AnimationViewController.m */; };
+		8D47959C1A0EBCB7008EE494 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D47958F1A0EBCB7008EE494 /* AppDelegate.m */; };
+		8D47959D1A0EBCB7008EE494 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D4795901A0EBCB7008EE494 /* LaunchScreen.xib */; };
+		8D47959E1A0EBCB7008EE494 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D4795921A0EBCB7008EE494 /* Main.storyboard */; };
+		8D47959F1A0EBCB7008EE494 /* CustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4795951A0EBCB7008EE494 /* CustomizationViewController.m */; };
+		8D4795A01A0EBCB7008EE494 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4795971A0EBCB7008EE494 /* DescriptionViewController.m */; };
+		8D4795A11A0EBCB7008EE494 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D4795981A0EBCB7008EE494 /* Info.plist */; };
+		8D4795A21A0EBCB7008EE494 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4795991A0EBCB7008EE494 /* main.m */; };
+		8D4795A61A0EBD6C008EE494 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D4795A51A0EBD6C008EE494 /* Default-568h@2x.png */; };
+		8D4795AA1A0EBDE4008EE494 /* MMMSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4795A91A0EBDE4008EE494 /* MMMSwitch.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		8DFC1FB819C6312D00EDA411 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8DFC1F9619C6312D00EDA411 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DFC1F9D19C6312D00EDA411;
-			remoteInfo = MMMSwitch;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		8D5206F719FDC7EA00EA6B18 /* CustomizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizationViewController.h; sourceTree = "<group>"; };
-		8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizationViewController.m; sourceTree = "<group>"; };
-		8D7133AE19F332A000CB1A43 /* AnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationViewController.h; sourceTree = "<group>"; };
-		8D7133AF19F332A000CB1A43 /* AnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationViewController.m; sourceTree = "<group>"; };
+		8D47958C1A0EBCB7008EE494 /* AnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationViewController.h; sourceTree = "<group>"; };
+		8D47958D1A0EBCB7008EE494 /* AnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationViewController.m; sourceTree = "<group>"; };
+		8D47958E1A0EBCB7008EE494 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8D47958F1A0EBCB7008EE494 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8D4795911A0EBCB7008EE494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		8D4795931A0EBCB7008EE494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8D4795941A0EBCB7008EE494 /* CustomizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizationViewController.h; sourceTree = "<group>"; };
+		8D4795951A0EBCB7008EE494 /* CustomizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizationViewController.m; sourceTree = "<group>"; };
+		8D4795961A0EBCB7008EE494 /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
+		8D4795971A0EBCB7008EE494 /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
+		8D4795981A0EBCB7008EE494 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D4795991A0EBCB7008EE494 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8D4795A51A0EBD6C008EE494 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		8D4795A81A0EBDE4008EE494 /* MMMSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMSwitch.h; sourceTree = "<group>"; };
+		8D4795A91A0EBDE4008EE494 /* MMMSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMSwitch.m; sourceTree = "<group>"; };
 		8DFC1F9E19C6312D00EDA411 /* MMMSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMMSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DFC1FA219C6312D00EDA411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8DFC1FA319C6312D00EDA411 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8DFC1FA519C6312D00EDA411 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		8DFC1FA619C6312D00EDA411 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8DFC1FA819C6312D00EDA411 /* DescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
-		8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
-		8DFC1FAC19C6312D00EDA411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8DFC1FAE19C6312D00EDA411 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		8DFC1FB119C6312D00EDA411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		8DFC1FB719C6312D00EDA411 /* MMMSwitchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MMMSwitchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DFC1FBC19C6312D00EDA411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8DFC1FBD19C6312D00EDA411 /* MMMSwitchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMMSwitchTests.m; sourceTree = "<group>"; };
-		8DFC1FC719C6316500EDA411 /* MMMSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMSwitch.h; sourceTree = "<group>"; };
-		8DFC1FC819C6316500EDA411 /* MMMSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMSwitch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,21 +46,43 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8DFC1FB419C6312D00EDA411 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D47958B1A0EBCB7008EE494 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				8D4795A51A0EBD6C008EE494 /* Default-568h@2x.png */,
+				8D47958C1A0EBCB7008EE494 /* AnimationViewController.h */,
+				8D47958D1A0EBCB7008EE494 /* AnimationViewController.m */,
+				8D47958E1A0EBCB7008EE494 /* AppDelegate.h */,
+				8D47958F1A0EBCB7008EE494 /* AppDelegate.m */,
+				8D4795901A0EBCB7008EE494 /* LaunchScreen.xib */,
+				8D4795921A0EBCB7008EE494 /* Main.storyboard */,
+				8D4795941A0EBCB7008EE494 /* CustomizationViewController.h */,
+				8D4795951A0EBCB7008EE494 /* CustomizationViewController.m */,
+				8D4795961A0EBCB7008EE494 /* DescriptionViewController.h */,
+				8D4795971A0EBCB7008EE494 /* DescriptionViewController.m */,
+				8D4795981A0EBCB7008EE494 /* Info.plist */,
+				8D4795991A0EBCB7008EE494 /* main.m */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		8D4795A71A0EBDE4008EE494 /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				8D4795A81A0EBDE4008EE494 /* MMMSwitch.h */,
+				8D4795A91A0EBDE4008EE494 /* MMMSwitch.m */,
+			);
+			path = Pod;
+			sourceTree = "<group>";
+		};
 		8DFC1F9519C6312D00EDA411 = {
 			isa = PBXGroup;
 			children = (
-				8DFC1FA019C6312D00EDA411 /* MMMSwitch */,
-				8DFC1FBA19C6312D00EDA411 /* MMMSwitchTests */,
+				8D4795A71A0EBDE4008EE494 /* Pod */,
+				8D47958B1A0EBCB7008EE494 /* Demo */,
 				8DFC1F9F19C6312D00EDA411 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,56 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				8DFC1F9E19C6312D00EDA411 /* MMMSwitch.app */,
-				8DFC1FB719C6312D00EDA411 /* MMMSwitchTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		8DFC1FA019C6312D00EDA411 /* MMMSwitch */ = {
-			isa = PBXGroup;
-			children = (
-				8DFC1FA519C6312D00EDA411 /* AppDelegate.h */,
-				8DFC1FA619C6312D00EDA411 /* AppDelegate.m */,
-				8D7133AE19F332A000CB1A43 /* AnimationViewController.h */,
-				8D7133AF19F332A000CB1A43 /* AnimationViewController.m */,
-				8D5206F719FDC7EA00EA6B18 /* CustomizationViewController.h */,
-				8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */,
-				8DFC1FA819C6312D00EDA411 /* DescriptionViewController.h */,
-				8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */,
-				8DFC1FAB19C6312D00EDA411 /* Main.storyboard */,
-				8DFC1FAE19C6312D00EDA411 /* Images.xcassets */,
-				8DFC1FB019C6312D00EDA411 /* LaunchScreen.xib */,
-				8DFC1FA119C6312D00EDA411 /* Supporting Files */,
-				8DFC1FC719C6316500EDA411 /* MMMSwitch.h */,
-				8DFC1FC819C6316500EDA411 /* MMMSwitch.m */,
-			);
-			path = MMMSwitch;
-			sourceTree = "<group>";
-		};
-		8DFC1FA119C6312D00EDA411 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8DFC1FA219C6312D00EDA411 /* Info.plist */,
-				8DFC1FA319C6312D00EDA411 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		8DFC1FBA19C6312D00EDA411 /* MMMSwitchTests */ = {
-			isa = PBXGroup;
-			children = (
-				8DFC1FBD19C6312D00EDA411 /* MMMSwitchTests.m */,
-				8DFC1FBB19C6312D00EDA411 /* Supporting Files */,
-			);
-			path = MMMSwitchTests;
-			sourceTree = "<group>";
-		};
-		8DFC1FBB19C6312D00EDA411 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8DFC1FBC19C6312D00EDA411 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,24 +115,6 @@
 			productReference = 8DFC1F9E19C6312D00EDA411 /* MMMSwitch.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8DFC1FB619C6312D00EDA411 /* MMMSwitchTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8DFC1FC419C6312D00EDA411 /* Build configuration list for PBXNativeTarget "MMMSwitchTests" */;
-			buildPhases = (
-				8DFC1FB319C6312D00EDA411 /* Sources */,
-				8DFC1FB419C6312D00EDA411 /* Frameworks */,
-				8DFC1FB519C6312D00EDA411 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8DFC1FB919C6312D00EDA411 /* PBXTargetDependency */,
-			);
-			name = MMMSwitchTests;
-			productName = MMMSwitchTests;
-			productReference = 8DFC1FB719C6312D00EDA411 /* MMMSwitchTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -183,10 +126,6 @@
 				TargetAttributes = {
 					8DFC1F9D19C6312D00EDA411 = {
 						CreatedOnToolsVersion = 6.0;
-					};
-					8DFC1FB619C6312D00EDA411 = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = 8DFC1F9D19C6312D00EDA411;
 					};
 				};
 			};
@@ -204,7 +143,6 @@
 			projectRoot = "";
 			targets = (
 				8DFC1F9D19C6312D00EDA411 /* MMMSwitch */,
-				8DFC1FB619C6312D00EDA411 /* MMMSwitchTests */,
 			);
 		};
 /* End PBXProject section */
@@ -214,16 +152,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DFC1FAD19C6312D00EDA411 /* Main.storyboard in Resources */,
-				8DFC1FB219C6312D00EDA411 /* LaunchScreen.xib in Resources */,
-				8DFC1FAF19C6312D00EDA411 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8DFC1FB519C6312D00EDA411 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				8D47959D1A0EBCB7008EE494 /* LaunchScreen.xib in Resources */,
+				8D4795A61A0EBD6C008EE494 /* Default-568h@2x.png in Resources */,
+				8D47959E1A0EBCB7008EE494 /* Main.storyboard in Resources */,
+				8D4795A11A0EBCB7008EE494 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,48 +166,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D7133B019F332A000CB1A43 /* AnimationViewController.m in Sources */,
-				8DFC1FAA19C6312D00EDA411 /* DescriptionViewController.m in Sources */,
-				8D5206F919FDC7EA00EA6B18 /* CustomizationViewController.m in Sources */,
-				8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */,
-				8DFC1FA419C6312D00EDA411 /* main.m in Sources */,
-				8DFC1FC919C6316500EDA411 /* MMMSwitch.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8DFC1FB319C6312D00EDA411 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8DFC1FBE19C6312D00EDA411 /* MMMSwitchTests.m in Sources */,
+				8D4795A01A0EBCB7008EE494 /* DescriptionViewController.m in Sources */,
+				8D4795AA1A0EBDE4008EE494 /* MMMSwitch.m in Sources */,
+				8D47959F1A0EBCB7008EE494 /* CustomizationViewController.m in Sources */,
+				8D47959B1A0EBCB7008EE494 /* AnimationViewController.m in Sources */,
+				8D4795A21A0EBCB7008EE494 /* main.m in Sources */,
+				8D47959C1A0EBCB7008EE494 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		8DFC1FB919C6312D00EDA411 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8DFC1F9D19C6312D00EDA411 /* MMMSwitch */;
-			targetProxy = 8DFC1FB819C6312D00EDA411 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		8DFC1FAB19C6312D00EDA411 /* Main.storyboard */ = {
+		8D4795901A0EBCB7008EE494 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8DFC1FAC19C6312D00EDA411 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		8DFC1FB019C6312D00EDA411 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8DFC1FB119C6312D00EDA411 /* Base */,
+				8D4795911A0EBCB7008EE494 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		8D4795921A0EBCB7008EE494 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8D4795931A0EBCB7008EE494 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -361,7 +277,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MMMSwitch/Info.plist;
+				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -371,43 +287,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = MMMSwitch/Info.plist;
+				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		8DFC1FC519C6312D00EDA411 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MMMSwitchTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MMMSwitch.app/MMMSwitch";
-			};
-			name = Debug;
-		};
-		8DFC1FC619C6312D00EDA411 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MMMSwitchTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MMMSwitch.app/MMMSwitch";
 			};
 			name = Release;
 		};
@@ -428,15 +310,6 @@
 			buildConfigurations = (
 				8DFC1FC219C6312D00EDA411 /* Debug */,
 				8DFC1FC319C6312D00EDA411 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8DFC1FC419C6312D00EDA411 /* Build configuration list for PBXNativeTarget "MMMSwitchTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8DFC1FC519C6312D00EDA411 /* Debug */,
-				8DFC1FC619C6312D00EDA411 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
