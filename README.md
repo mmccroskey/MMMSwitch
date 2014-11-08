@@ -1,6 +1,8 @@
 # MMMSwitch
 -----------
 
+![Rich State Callback](http://f.cl.ly/items/0u3u0m1C1i0Q1Q2a0X10/switch%20gif%20001.gif) ![Animations](http://cl.ly/image/042L0F381J3n/Screen%20Recording%202014-11-02%20at%2005.15%20PM.gif =250x) ![Customization](http://f.cl.ly/items/2A1s0o2M193M3s310D3C/Screen%20Recording%202014-11-02%20at%2005.16%20PM.gif =250x)
+
 **A `UISwitch` Alternative that Supports Auto Layout, Resizing, and Visual Customization with Rich State Callback.**
 
 `MMMSwitch` is a `UISwitch` alternative* that fully supports Auto Layout (meaning it responds appropriately to constraint-based layout changes), supports being arbitrarily sized and resized, supports visual customization, and has a rich callback method for state changes.
@@ -29,7 +31,8 @@ pod 'MMMSwitch'
 
 ## Usage
 
-```objc
+```
+
 MMMSwitch *mySwitch = [[MMMSwitch alloc] init];
 
 // Optional, defaults found in MMMSwitch.m
@@ -75,6 +78,7 @@ mySwitch.stateDidChangeHandler = ^(MMMSwitchState newState)
             break;
     }
 }
+
 ```
 First, we create the `MMMSwitch` just as you would create a `UISwitch` -- note that you can of course create an `MMMSwitch` in a XIB or Storyboard as well if you prefer. Note that if you use `initWithFrame` rather than the simple `init` as we do above, the frame will be ignored -- you'll need to set the switch's size and position using Auto Layout.
 
