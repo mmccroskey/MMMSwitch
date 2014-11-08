@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D5206F919FDC7EA00EA6B18 /* CustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */; };
+		8D7133B019F332A000CB1A43 /* AnimationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D7133AF19F332A000CB1A43 /* AnimationViewController.m */; };
 		8DFC1FA419C6312D00EDA411 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA319C6312D00EDA411 /* main.m */; };
 		8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA619C6312D00EDA411 /* AppDelegate.m */; };
-		8DFC1FAA19C6312D00EDA411 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA919C6312D00EDA411 /* ViewController.m */; };
+		8DFC1FAA19C6312D00EDA411 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */; };
 		8DFC1FAD19C6312D00EDA411 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FAB19C6312D00EDA411 /* Main.storyboard */; };
 		8DFC1FAF19C6312D00EDA411 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FAE19C6312D00EDA411 /* Images.xcassets */; };
 		8DFC1FB219C6312D00EDA411 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC1FB019C6312D00EDA411 /* LaunchScreen.xib */; };
 		8DFC1FBE19C6312D00EDA411 /* MMMSwitchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FBD19C6312D00EDA411 /* MMMSwitchTests.m */; };
 		8DFC1FC919C6316500EDA411 /* MMMSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FC819C6316500EDA411 /* MMMSwitch.m */; };
-		8DFC1FCC19C633DC00EDA411 /* MMMSwitchThumb.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FCB19C633DC00EDA411 /* MMMSwitchThumb.m */; };
-		8DFC1FCF19C6382600EDA411 /* MMMSwitchTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC1FCE19C6382600EDA411 /* MMMSwitchTrack.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,13 +30,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D5206F719FDC7EA00EA6B18 /* CustomizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizationViewController.h; sourceTree = "<group>"; };
+		8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizationViewController.m; sourceTree = "<group>"; };
+		8D7133AE19F332A000CB1A43 /* AnimationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationViewController.h; sourceTree = "<group>"; };
+		8D7133AF19F332A000CB1A43 /* AnimationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationViewController.m; sourceTree = "<group>"; };
 		8DFC1F9E19C6312D00EDA411 /* MMMSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MMMSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFC1FA219C6312D00EDA411 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DFC1FA319C6312D00EDA411 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8DFC1FA519C6312D00EDA411 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8DFC1FA619C6312D00EDA411 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8DFC1FA819C6312D00EDA411 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8DFC1FA919C6312D00EDA411 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8DFC1FA819C6312D00EDA411 /* DescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
+		8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
 		8DFC1FAC19C6312D00EDA411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8DFC1FAE19C6312D00EDA411 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8DFC1FB119C6312D00EDA411 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -45,10 +49,6 @@
 		8DFC1FBD19C6312D00EDA411 /* MMMSwitchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMMSwitchTests.m; sourceTree = "<group>"; };
 		8DFC1FC719C6316500EDA411 /* MMMSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMSwitch.h; sourceTree = "<group>"; };
 		8DFC1FC819C6316500EDA411 /* MMMSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMSwitch.m; sourceTree = "<group>"; };
-		8DFC1FCA19C633DC00EDA411 /* MMMSwitchThumb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMSwitchThumb.h; sourceTree = "<group>"; };
-		8DFC1FCB19C633DC00EDA411 /* MMMSwitchThumb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMSwitchThumb.m; sourceTree = "<group>"; };
-		8DFC1FCD19C6382600EDA411 /* MMMSwitchTrack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMSwitchTrack.h; sourceTree = "<group>"; };
-		8DFC1FCE19C6382600EDA411 /* MMMSwitchTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMSwitchTrack.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,18 +92,18 @@
 			children = (
 				8DFC1FA519C6312D00EDA411 /* AppDelegate.h */,
 				8DFC1FA619C6312D00EDA411 /* AppDelegate.m */,
-				8DFC1FA819C6312D00EDA411 /* ViewController.h */,
-				8DFC1FA919C6312D00EDA411 /* ViewController.m */,
+				8D7133AE19F332A000CB1A43 /* AnimationViewController.h */,
+				8D7133AF19F332A000CB1A43 /* AnimationViewController.m */,
+				8D5206F719FDC7EA00EA6B18 /* CustomizationViewController.h */,
+				8D5206F819FDC7EA00EA6B18 /* CustomizationViewController.m */,
+				8DFC1FA819C6312D00EDA411 /* DescriptionViewController.h */,
+				8DFC1FA919C6312D00EDA411 /* DescriptionViewController.m */,
 				8DFC1FAB19C6312D00EDA411 /* Main.storyboard */,
 				8DFC1FAE19C6312D00EDA411 /* Images.xcassets */,
 				8DFC1FB019C6312D00EDA411 /* LaunchScreen.xib */,
 				8DFC1FA119C6312D00EDA411 /* Supporting Files */,
 				8DFC1FC719C6316500EDA411 /* MMMSwitch.h */,
 				8DFC1FC819C6316500EDA411 /* MMMSwitch.m */,
-				8DFC1FCA19C633DC00EDA411 /* MMMSwitchThumb.h */,
-				8DFC1FCB19C633DC00EDA411 /* MMMSwitchThumb.m */,
-				8DFC1FCD19C6382600EDA411 /* MMMSwitchTrack.h */,
-				8DFC1FCE19C6382600EDA411 /* MMMSwitchTrack.m */,
 			);
 			path = MMMSwitch;
 			sourceTree = "<group>";
@@ -234,12 +234,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DFC1FCC19C633DC00EDA411 /* MMMSwitchThumb.m in Sources */,
-				8DFC1FAA19C6312D00EDA411 /* ViewController.m in Sources */,
+				8D7133B019F332A000CB1A43 /* AnimationViewController.m in Sources */,
+				8DFC1FAA19C6312D00EDA411 /* DescriptionViewController.m in Sources */,
+				8D5206F919FDC7EA00EA6B18 /* CustomizationViewController.m in Sources */,
 				8DFC1FA719C6312D00EDA411 /* AppDelegate.m in Sources */,
 				8DFC1FA419C6312D00EDA411 /* main.m in Sources */,
 				8DFC1FC919C6316500EDA411 /* MMMSwitch.m in Sources */,
-				8DFC1FCF19C6382600EDA411 /* MMMSwitchTrack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +430,7 @@
 				8DFC1FC319C6312D00EDA411 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8DFC1FC419C6312D00EDA411 /* Build configuration list for PBXNativeTarget "MMMSwitchTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +439,7 @@
 				8DFC1FC619C6312D00EDA411 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
