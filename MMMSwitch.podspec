@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MMMSwitch"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "A UISwitch Alternative that Supports Auto Layout, Resizing, and Visual Customization with Rich State Callback."
 
   s.description  = <<-DESC
@@ -28,7 +28,7 @@ There are lots of great `UISwitch` replacements out there, so why create another
   s.author    = "Matthew McCroskey"
   s.social_media_url   = "http://twitter.com/mmccroskey"
   s.platform     = :ios, "6.0"
-  s.source       = { :git => "https://github.com/mmccroskey/MMMSwitch.git", :tag => "0.1.0" }
+  s.source       = { :git => "https://github.com/mmccroskey/MMMSwitch.git", :tag => "0.1.1" }
   s.source_files  = "Pod", "Pod/**/*.{h,m}"
   s.requires_arc = true
 
