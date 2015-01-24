@@ -338,6 +338,11 @@ static void * KVOContext = &KVOContext;
     {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
+        // Force the view to lay out according to its
+        // current constraints so that we can capture the width
+        [self layoutIfNeeded];
+        CGFloat width = CGRectGetWidth(self.frame);
+        
         // Kill all existing size constraints
         for (NSLayoutConstraint *constraint in self.constraints)
         {
@@ -362,7 +367,7 @@ static void * KVOContext = &KVOContext;
                                                                toItem:nil
                                                             attribute:NSLayoutAttributeNotAnAttribute
                                                            multiplier:1.0f
-                                                             constant:self.frame.size.width];
+                                                             constant:width];
         [self addConstraint:self.widthConstraint];
         
         // Make sure height is always 3/5ths of width
@@ -405,14 +410,28 @@ static void * KVOContext = &KVOContext;
     BOOL keyPathMatches = ([keyPath isEqualToString:NSStringFromSelector(@selector(currentState))]);
     if (contextMatches && objectMatches && keyPathMatches)
     {
-        // If the user has set a stateDidChangeHandler...
-        if (self.stateDidChangeHandler)
+        id newValue = change[NSKeyValueChangeNewKey];
+        if ([newValue isKindOfClass:[NSNumber class]])
         {
-            // ...then call it with the latest state every time the state changes
-            id newValue = change[NSKeyValueChangeNewKey];
-            if ([newValue isKindOfClass:[NSNumber class]])
+            MMMSwitchState newState = [(NSNumber*)newValue integerValue];
+            
+            if (newState == MMMSwitchStateSelectedPressedOff || newState == MMMSwitchStateSelectedPressedOn)
             {
-                MMMSwitchState newState = [(NSNumber*)newValue integerValue];
+                // The user's finger just moved inside the switch (or was there already),
+                // so make sure the thumb is fat
+                [self.thumb grow];
+            }
+            else
+            {
+                // The user's finger just moved outside the switch (or was there already),
+                // so make the thumb circular (aka not fat)
+                [self.thumb shrink];
+            }
+            
+            // If the user has set a stateDidChangeHandler...
+            if (self.stateDidChangeHandler)
+            {
+                // ...then call it with the latest state every time the state changes
                 self.stateDidChangeHandler(newState);
             }
         }
@@ -461,16 +480,14 @@ static void * KVOContext = &KVOContext;
     {
         __weak id weakSelf = self;
         [UIView animateWithDuration:kDefaultOnOffAnimationDuration animations:^
-        {
-            [weakSelf setOn:on animated:NO];
-        } completion:^(BOOL finished) {
-            if (finished && !(self.currentTouch))
-            {
-                [self.thumb shrink];
-                
-                self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
-            }
-        }];
+         {
+             [weakSelf setOn:on animated:NO];
+         } completion:^(BOOL finished) {
+             if (finished && !(self.currentTouch))
+             {
+                 self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
+             }
+         }];
     }
     else
     {
@@ -590,9 +607,6 @@ static void * KVOContext = &KVOContext;
     self.currentTouch = [touches anyObject];
     
     self.currentState = self.isOn ? MMMSwitchStateSelectedPressedOn : MMMSwitchStateSelectedPressedOff;
-    
-    // User has touched down, so make the thumb fatter
-    [self.thumb grow];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -621,17 +635,11 @@ static void * KVOContext = &KVOContext;
     {
         // It used to be outside and now it's inside
         
-        // The user's finger just moved inside the switch, so make the thumb fat
-        [self.thumb grow];
-        
         self.currentState = onRightSide ? MMMSwitchStateSelectedPressedOn : MMMSwitchStateSelectedPressedOff;
     }
     else if (!(wasOutsideOfSelf) && isOutsideOfSelf)
     {
         // It used to be inside and now it's outside
-        
-        // The user's finger just moved outside the switch, so make the thumb circular (aka not fat)
-        [self.thumb shrink];
         
         self.currentState = onRightSide ? MMMSwitchStateSelectedUnpressedOn : MMMSwitchStateSelectedUnpressedOff;
     }
@@ -656,8 +664,6 @@ static void * KVOContext = &KVOContext;
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [self.thumb shrink];
-    
     self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
 }
 
@@ -711,8 +717,6 @@ static void * KVOContext = &KVOContext;
         if (touchInsideThumb && touchInsideSwitch)
         {
             self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
-            
-            [self.thumb shrink];
         }
         else if (!(touchInsideThumb) && touchInsideSwitch)
         {
