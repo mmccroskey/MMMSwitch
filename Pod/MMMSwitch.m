@@ -716,7 +716,7 @@ static void * KVOContext = &KVOContext;
         
         if (touchInsideThumb && touchInsideSwitch)
         {
-            self.currentState = self.isOn ? MMMSwitchStateOn : MMMSwitchStateOff;
+            [self setOn:!self.isOn animated:YES];
         }
         else if (!(touchInsideThumb) && touchInsideSwitch)
         {
