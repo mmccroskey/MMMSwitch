@@ -41,7 +41,7 @@ pod 'MMMSwitch'
 
 ## Usage
 
-```
+```objc
 
 MMMSwitch *mySwitch = [[MMMSwitch alloc] init];
 
