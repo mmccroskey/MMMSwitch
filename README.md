@@ -26,7 +26,7 @@ There are lots of great `UISwitch` replacements out there, so why create another
 * Works great in Auto Layout environments
 	* It won't get distorted when it gets resized due to changing constraints or when it gets its size animated
 * Has a *rich state callback method* 
-	* It can distinguish between all user-distinguishable states, so it can tell you whether it's completely off, or if, for instance, the user's pressing it down but has yet switched its state yet. 
+	* It can distinguish between all user-distinguishable states, so it can tell you whether it's completely off, or if, for instance, the user's pressing it down but has not yet switched its state. 
 	* Too much info for you? No problem -- just use the callback but check `MMMSwitch`'s `isOn` parameter inside of the callback and get the basic on/off info you want.
 
 ## Installation
